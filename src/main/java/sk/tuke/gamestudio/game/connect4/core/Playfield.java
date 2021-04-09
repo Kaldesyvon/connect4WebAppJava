@@ -1,5 +1,8 @@
 package sk.tuke.gamestudio.game.connect4.core;
 
+import org.springframework.stereotype.Component;
+
+
 public class Playfield {
     private final Stone[][] stones;
 

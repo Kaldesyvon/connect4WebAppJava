@@ -1,17 +1,27 @@
 package sk.tuke.gamestudio.game.connect4.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 
+@Entity
 public class Score {
-    private final String gameName;
+    @Id
+    @GeneratedValue
+    private int ident;
+
+    private String gameName;
 
 //    private final String opponentName;
 
-    private final String playerName;
+    private String playerName;
 
-    private final int points;
+    private int points;
 
-    private final Date playedAt;
+    private Date playedAt;
+
+    public Score() { }
 
     /**
      * Creates score that is send to database so I can see results of players.
@@ -27,21 +37,46 @@ public class Score {
         this.playedAt = playedAt;
     }
 
-    public String getGameName() { return gameName; }
+    public int getIdent() {
+        return ident;
+    }
+
+    public void setIdent(int ident) {
+        this.ident = ident;
+    }
+
+    public String getGameName() {
+        return gameName;
+    }
+
+    public void setGameName(String game) {
+        this.gameName = game;
+    }
 
     public String getPlayerName() {
         return playerName;
     }
 
-//    public String getOpponentName() { return opponentName; }
+    public void setPlayerName(String player) {
+        this.playerName = player;
+    }
 
     public int getPoints() {
         return points;
     }
 
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
     public Date getPlayedAt() {
         return playedAt;
     }
+
+    public void setPlayedAt(Date playedAt) {
+        this.playedAt = playedAt;
+    }
+
 
     /**
      * Overridden toString to print in special format.

@@ -1,19 +1,24 @@
 package sk.tuke.gamestudio.game.connect4.core;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import sk.tuke.gamestudio.game.connect4.consoleui.ConsoleUI;
-import sk.tuke.gamestudio.game.connect4.service.CommentException;
-import sk.tuke.gamestudio.game.connect4.service.RatingException;
 
 public final class Game {
 
+    private Color firstPlayer = Color.RED;
+
+    @Autowired
     private final Playfield playfield;
 
     private final Player redPlayer;
 
     private final Player yellowPlayer;
 
+    @Autowired
     private final ConsoleUI ui;
+
+//    private final RatingServiceJDBC ratingService = new RatingServiceJDBC();
+//    private final CommentServiceJDBC commentService = new CommentServiceJDBC();
 
     // change these two variables to change playfield
     private final int playfieldWidth = 7;
@@ -21,21 +26,20 @@ public final class Game {
 
     /**
      * Creates everything needed to start a game.
-     * @throws CommentException if connection to comment service in database is failed
-     * @throws RatingException if connection to rating service in database is failed
+//     * @throws CommentException if connection to comment service in database is failed
+//     * @throws RatingException if connection to rating service in database is failed
      */
-    public Game() throws RatingException, CommentException {
-        playfield = new Playfield(playfieldWidth, playfieldHeight);
-        ui = new ConsoleUI(playfield);
+    public Game(ConsoleUI ui, Playfield playfield) /*throws RatingException, CommentException*/ {
+        this.playfield = playfield;
+        this.ui = ui;
         redPlayer = ui.createPlayer(Color.RED);
         yellowPlayer = ui.createPlayer(Color.YELLOW);
     }
 
     /**
      * Main game loop and UI calls. When game ends first player is switched.
-     * @param firstPlayer color of player who takes first turn
      */
-    public void play(Color firstPlayer) {
+    public void play() {
         while (true){
             int columnInput;
 

@@ -1,15 +1,25 @@
 package sk.tuke.gamestudio.game.connect4.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 
+@Entity
 public class Comment {
-    private final String player;
+    @Id
+    @GeneratedValue
+    private int ident;
 
-    private final String game;
+    private String player;
 
-    private final String comment;
+    private String game;
 
-    private final Date commentedOn;
+    private String comment;
+
+    private Date commentedOn;
+
+    public Comment() { }
 
     /**
      * Creates a feedback that is send to database so I can see opinions of players.

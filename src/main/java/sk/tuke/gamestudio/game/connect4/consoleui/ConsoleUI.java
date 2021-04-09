@@ -1,5 +1,6 @@
 package sk.tuke.gamestudio.game.connect4.consoleui;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import sk.tuke.gamestudio.game.connect4.core.*;
 import sk.tuke.gamestudio.game.connect4.entity.Comment;
 import sk.tuke.gamestudio.game.connect4.entity.Rating;
@@ -8,6 +9,7 @@ import sk.tuke.gamestudio.game.connect4.service.*;
 
 import java.util.Date;
 import java.util.Scanner;
+
 
 public class ConsoleUI {
     /**
@@ -20,10 +22,14 @@ public class ConsoleUI {
     /**
      * Services that manages tables in database
      */
-    private final ScoreService scoreService = ScoreServiceJDBC.getInstance();
-    private final CommentService commentService = CommentServiceJDBC.getInstance();
-    private final RatingService ratingService = RatingServiceJDBC.getInstance();
+    @Autowired
+    private final ScoreService scoreService;
+    @Autowired
+    private final CommentService commentService;
+    @Autowired
+    private final RatingService ratingService;
 
+    @Autowired
     private final Playfield playfield;
 
     private final Stone[][] stones;
@@ -33,13 +39,17 @@ public class ConsoleUI {
     /**
      * Main part of game, here are handled inputs and outputs.
 
-     * @throws CommentException if connection to service in database is failed
-     * @throws RatingException if connection to rating service in database is failed
+//     * @throws CommentException if connection to service in database is failed
+//     * @throws RatingException if connection to rating service in database is failed
      */
-    public ConsoleUI(Playfield playfield) throws RatingException, CommentException {
+    public ConsoleUI(Playfield playfield, ScoreService scoreService, CommentService commentService, RatingService ratingService) {
+        this.scoreService = scoreService;
+        this.commentService = commentService;
+        this.ratingService = ratingService;
         this.playfield = playfield;
         stones = playfield.getTiles();
     }
+
 
     /**
      * Method process input that user made and provides adequate output.
@@ -64,13 +74,9 @@ public class ConsoleUI {
                     if (input.equals("f")) { // handles commenting
                         System.out.println("Write what you have on heart (max 150 symbols)");
                         String comment = scanner.nextLine();
-                        try {
-                            commentService.addComment(new Comment(playerOnTurn.getName(), "connect4", comment, new Date()));
-                            System.out.println("thank you for feedback");
-                        } catch (CommentException e) {
-                            e.printStackTrace();
-                        }
-                    } else if (input.equals("t")){ // handles top score
+                        commentService.addComment(new Comment(playerOnTurn.getName(), "connect4", comment, new Date()));
+                        System.out.println("thank you for feedback");
+                    } else  if (input.equals("t")){ // handles top score
                         try {
                             System.out.println(scoreService.getTopScores("connect4").toString());
                         } catch (ScoreException e){
@@ -107,14 +113,10 @@ public class ConsoleUI {
                         } catch (Exception ex) {
                             System.out.println("wrong input");
                         }
-                    }while (true);
-                    try {
-                        ratingService.setRating(new Rating("connect4", playerOnTurn.getName(), rating, new Date()));
-                        System.out.println("Average is " + ratingService.getAverageRating("connect4"));
-                        System.out.println("Thank you for rating");
-                    } catch (RatingException e) {
-                        e.printStackTrace();
-                    }
+                    } while (true);
+                    ratingService.setRating(new Rating("connect4", playerOnTurn.getName(), rating, new Date()));
+                    System.out.println("Average is " + ratingService.getAverageRating("connect4"));
+                    System.out.println("Thank you for rating");
                 }
             } else { // handles exit
                 addScoreToDB(playerOnTurn, otherPlayer);
@@ -231,7 +233,7 @@ public class ConsoleUI {
      */
     public void endConnections() {
         scoreService.endConnection();
-        commentService.endConnection();
-        ratingService.endConnection();
+//        commentService.endConnection();
+//        ratingService.endConnection();
     }
 }

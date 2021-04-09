@@ -1,15 +1,25 @@
 package sk.tuke.gamestudio.game.connect4.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 
+@Entity
 public class Rating {
-    private final String game;
+    @Id
+    @GeneratedValue
+    private int ident;
 
-    private final String player;
+    private String game;
 
-    private final int rating;
+    private String player;
 
-    private final Date ratedOn;
+    private int rating;
+
+    private Date ratedOn;
+
+    public Rating() { }
 
     /**
      * Creates rating that is sent to database so I can see if the game is good or not.
