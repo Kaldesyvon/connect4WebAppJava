@@ -1,5 +1,6 @@
 package sk.tuke.gamestudio.server.webservice;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/score")
 public class ScoreServiceRest {
+    @Autowired
     private ScoreService scoreService;
 
     public void addScore(Score score) {
