@@ -11,8 +11,9 @@ public class Player {
 
     /**
      * Creates instance of Player. They need to be exact two of this instance.
-     * @param name name of player as user wishes
-     * @param color color under which player will be playing game session
+     *
+     * @param name      name of player as user wishes
+     * @param color     color under which player will be playing game session
      * @param playfield playfield which game is played on
      */
     public Player(String name, final Color color, Playfield playfield) {
@@ -23,6 +24,7 @@ public class Player {
 
     /**
      * Adds points to player's account.
+     *
      * @param amount how much points player earned
      */
     public void addPoints(int amount) {
@@ -43,6 +45,7 @@ public class Player {
 
     /**
      * Adds stone to playfield and stone falls down.
+     *
      * @param column which column player added to playfield
      * @return true if stone was successfully added, otherwise false
      */

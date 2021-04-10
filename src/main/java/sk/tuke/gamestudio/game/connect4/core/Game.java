@@ -23,8 +23,8 @@ public final class Game {
 
     /**
      * Creates everything needed to start a game.
-//     * @throws CommentException if connection to comment service in database is failed
-//     * @throws RatingException if connection to rating service in database is failed
+     * //     * @throws CommentException if connection to comment service in database is failed
+     * //     * @throws RatingException if connection to rating service in database is failed
      */
     public Game(ConsoleUI ui, Playfield playfield) /*throws RatingException, CommentException*/ {
         this.playfield = playfield;
@@ -37,7 +37,7 @@ public final class Game {
      * Main game loop and UI calls. When game ends first player is switched.
      */
     public void play() {
-        while (true){
+        while (true) {
             int columnInput;
 
             Player playerOnTurn = redPlayer.getColor() == firstPlayer ? redPlayer : yellowPlayer;
@@ -90,7 +90,7 @@ public final class Game {
         return color == Color.RED ? Color.YELLOW : Color.RED;
     }
 
-    private Player switchPlayers(Player player){
+    private Player switchPlayers(Player player) {
         return player.getColor() == Color.RED ? yellowPlayer : redPlayer;
     }
 }

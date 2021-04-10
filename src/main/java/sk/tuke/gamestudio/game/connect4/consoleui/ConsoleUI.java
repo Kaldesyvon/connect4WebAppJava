@@ -1,11 +1,17 @@
 package sk.tuke.gamestudio.game.connect4.consoleui;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import sk.tuke.gamestudio.game.connect4.core.*;
-import sk.tuke.gamestudio.game.connect4.entity.Comment;
-import sk.tuke.gamestudio.game.connect4.entity.Rating;
-import sk.tuke.gamestudio.game.connect4.entity.Score;
-import sk.tuke.gamestudio.game.connect4.service.*;
+import sk.tuke.gamestudio.entity.Comment;
+import sk.tuke.gamestudio.entity.Rating;
+import sk.tuke.gamestudio.entity.Score;
+import sk.tuke.gamestudio.game.connect4.core.Color;
+import sk.tuke.gamestudio.game.connect4.core.Player;
+import sk.tuke.gamestudio.game.connect4.core.Playfield;
+import sk.tuke.gamestudio.game.connect4.core.Stone;
+import sk.tuke.gamestudio.service.CommentService;
+import sk.tuke.gamestudio.service.RatingService;
+import sk.tuke.gamestudio.service.ScoreException;
+import sk.tuke.gamestudio.service.ScoreService;
 
 import java.util.Date;
 import java.util.Scanner;
@@ -22,6 +28,7 @@ public class ConsoleUI {
     /**
      * Services that manages tables in database
      */
+
     @Autowired
     private final ScoreService scoreService;
     @Autowired
@@ -38,9 +45,9 @@ public class ConsoleUI {
 
     /**
      * Main part of game, here are handled inputs and outputs.
-
-//     * @throws CommentException if connection to service in database is failed
-//     * @throws RatingException if connection to rating service in database is failed
+     * <p>
+     * //     * @throws CommentException if connection to service in database is failed
+     * //     * @throws RatingException if connection to rating service in database is failed
      */
     public ConsoleUI(Playfield playfield, ScoreService scoreService, CommentService commentService, RatingService ratingService) {
         this.scoreService = scoreService;
@@ -53,8 +60,9 @@ public class ConsoleUI {
 
     /**
      * Method process input that user made and provides adequate output.
+     *
      * @param playerOnTurn player whose turn is
-     * @param otherPlayer other player
+     * @param otherPlayer  other player
      * @return column user want to add stone to
      */
     public int processInput(Player playerOnTurn, Player otherPlayer) {
@@ -84,23 +92,21 @@ public class ConsoleUI {
                             System.out.println("thank you for feedback");
                             break;
                         } while (true);
-                    } else  if (input.equals("t")){ // handles top score
+                    } else if (input.equals("t")) { // handles top score
                         try {
                             System.out.println(scoreService.getTopScores("connect4").toString());
-                        } catch (ScoreException e){
+                        } catch (ScoreException e) {
                             e.printStackTrace();
                         }
                     } else {
                         try {
                             int columnInput = Integer.parseInt(input);
-                            if (columnInput >= 0 && columnInput <= playfield.getWidth() - 1){
+                            if (columnInput >= 0 && columnInput <= playfield.getWidth() - 1) {
                                 break;
-                            }
-                            else {
+                            } else {
                                 System.out.println("invalid column");
                             }
-                        }
-                        catch (Exception ex) {
+                        } catch (Exception ex) {
                             System.out.println("wrong input");
                         }
 
@@ -112,10 +118,9 @@ public class ConsoleUI {
                         String line = scanner.nextLine();
                         try {
                             rating = Integer.parseInt(line);
-                            if (rating >= 1 && rating <= 10){
+                            if (rating >= 1 && rating <= 10) {
                                 break;
-                            }
-                            else {
+                            } else {
                                 System.out.println("rating out of range");
                             }
                         } catch (Exception ex) {
@@ -130,7 +135,7 @@ public class ConsoleUI {
                 addScoreToDB(playerOnTurn, otherPlayer);
                 System.exit(0);
             }
-        }while (true);
+        } while (true);
         return Integer.parseInt(input);
     }
 
@@ -161,6 +166,7 @@ public class ConsoleUI {
 
     /**
      * Handles when game end is draw. Does not matter on which player is passed first to method.
+     *
      * @param player1 first player
      * @param player2 second player
      */
@@ -173,6 +179,7 @@ public class ConsoleUI {
 
     /**
      * Handles when there is a winner and looser.
+     *
      * @param winner player who won
      * @param looser player who lost
      */
@@ -187,13 +194,14 @@ public class ConsoleUI {
 
     /**
      * Handles input of players if they agree to play again.
+     *
      * @return true if they want to play again, false otherwise
      */
     public boolean playAgain() {
         System.out.println();
         System.out.println("Do you want to play again? [Y/n]");
 
-        while (true){
+        while (true) {
             String answer = scanner.nextLine();
 
             if (answer.equalsIgnoreCase("Y")) return true;
@@ -206,17 +214,19 @@ public class ConsoleUI {
 
     /**
      * Creates player named as user wish.
+     *
      * @param color what color player is
      * @return new instance of Player class
      */
-    public Player createPlayer(Color color){
-        System.out.println("Enter name of "  +(color == Color.RED ? "RED" : "YELLOW") + " player ");
+    public Player createPlayer(Color color) {
+        System.out.println("Enter name of " + (color == Color.RED ? "RED" : "YELLOW") + " player ");
         String line = scanner.nextLine();
         return new Player(line, color, playfield);
     }
 
     /**
      * Prints score of both players. Does not matter on order of arguments, players' name will be printed.
+     *
      * @param player1 first player
      * @param player2 second player
      */
@@ -228,12 +238,13 @@ public class ConsoleUI {
     /**
      * Creates Score instance and adds it to created database.
      * Does not matter on order of arguments, players' name will be added to database.
+     *
      * @param player1 first player
      * @param player2 second player
      */
     public void addScoreToDB(Player player1, Player player2) {
         scoreService.addScore(new Score("connect4", player1.getName(), player1.getScore(), new Date()));
-        scoreService.addScore(new Score("connect4",player2.getName(), player2.getScore(), new Date()));
+        scoreService.addScore(new Score("connect4", player2.getName(), player2.getScore(), new Date()));
     }
 
     /**

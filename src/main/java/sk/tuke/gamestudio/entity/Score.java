@@ -1,4 +1,4 @@
-package sk.tuke.gamestudio.game.connect4.entity;
+package sk.tuke.gamestudio.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,16 +21,18 @@ public class Score {
 
     private Date playedAt;
 
-    public Score() { }
+    public Score() {
+    }
 
     /**
      * Creates score that is send to database so I can see results of players.
-     * @param gameName name of game that is "connect4" obviously
+     *
+     * @param gameName   name of game that is "connect4" obviously
      * @param playerName player's name
-     * @param points points that player earned
-     * @param playedAt date at which score was added
+     * @param points     points that player earned
+     * @param playedAt   date at which score was added
      */
-    public Score(String gameName, String playerName,  int points, Date playedAt){
+    public Score(String gameName, String playerName, int points, Date playedAt) {
         this.gameName = gameName;
         this.playerName = playerName;
         this.points = points;
@@ -72,6 +74,7 @@ public class Score {
 
     /**
      * Overridden toString to print in special format.
+     *
      * @return string in format
      */
     @Override

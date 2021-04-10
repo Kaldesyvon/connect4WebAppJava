@@ -1,6 +1,7 @@
-package sk.tuke.gamestudio.game.connect4.service;
+package sk.tuke.gamestudio.service;
 
-import sk.tuke.gamestudio.game.connect4.entity.Rating;
+
+import sk.tuke.gamestudio.entity.Rating;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,10 +19,9 @@ public class RatingServiceJPA implements RatingService {
         if (getRating("connect4", rating.getPlayer()) == -1) {
             entityManager.persist(rating);
             System.out.println("novy rating");
-        }
-        else {
+        } else {
             entityManager.createQuery("update Rating r set rating = " + rating.getRating() + "where player='" + rating.getPlayer() + "'")
-            .executeUpdate();
+                    .executeUpdate();
             System.out.println("updatol som rating");
         }
     }
@@ -29,14 +29,14 @@ public class RatingServiceJPA implements RatingService {
     @Override
     public int getAverageRating(String game) {
         Query query = entityManager.createQuery("select avg(r.rating) from Rating r");
-        return ((Number)query.getSingleResult()).intValue();
+        return ((Number) query.getSingleResult()).intValue();
     }
 
     @Override
     public int getRating(String game, String player) {
-        Query query = entityManager.createQuery("select r.rating from Rating as r where r.player ='" + player+ "'");
+        Query query = entityManager.createQuery("select r.rating from Rating as r where r.player ='" + player + "'");
         return query.getResultList()
-                .isEmpty() ? -1 : ((Number)query.getSingleResult()).intValue();
+                .isEmpty() ? -1 : ((Number) query.getSingleResult()).intValue();
     }
 
     @Override

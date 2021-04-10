@@ -1,6 +1,6 @@
-package sk.tuke.gamestudio.game.connect4.service;
+package sk.tuke.gamestudio.service;
 
-import sk.tuke.gamestudio.game.connect4.entity.Comment;
+import sk.tuke.gamestudio.entity.Comment;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,7 +24,7 @@ public class CommentServiceJPA implements CommentService {
     }
 
     @Override
-    public void reset() throws CommentException {
+    public void reset() {
         entityManager.createQuery("delete from Comment");
     }
 

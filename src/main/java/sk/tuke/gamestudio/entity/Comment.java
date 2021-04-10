@@ -1,4 +1,4 @@
-package sk.tuke.gamestudio.game.connect4.entity;
+package sk.tuke.gamestudio.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,13 +19,15 @@ public class Comment {
 
     private Date commentedOn;
 
-    public Comment() { }
+    public Comment() {
+    }
 
     /**
      * Creates a feedback that is send to database so I can see opinions of players.
-     * @param player name of player
-     * @param game game which player plays, "connect4" obviously
-     * @param comment actual feedback
+     *
+     * @param player      name of player
+     * @param game        game which player plays, "connect4" obviously
+     * @param comment     actual feedback
      * @param commentedOn date when was feedback added
      */
     public Comment(String player, String game, String comment, Date commentedOn) {
@@ -49,6 +51,7 @@ public class Comment {
 
     /**
      * Overridden toString to print in special format.
+     *
      * @return string in format
      */
     @Override

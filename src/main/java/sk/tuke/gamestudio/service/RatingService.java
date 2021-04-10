@@ -1,6 +1,7 @@
-package sk.tuke.gamestudio.game.connect4.service;
+package sk.tuke.gamestudio.service;
 
-import sk.tuke.gamestudio.game.connect4.entity.Rating;
+
+import sk.tuke.gamestudio.entity.Rating;
 
 public interface RatingService {
     void setRating(Rating rating);

@@ -10,7 +10,8 @@ public class Stone {
 
     /**
      * Create new Stone that act like a stone or empty tile
-     * @param color color of stone
+     *
+     * @param color          color of stone
      * @param columnPosition column to which stone is added
      */
     public Stone(Color color, int columnPosition) {
@@ -18,13 +19,19 @@ public class Stone {
         this.columnPosition = columnPosition;
     }
 
-    public Color getTileState() { return tileState; }
+    public Color getTileState() {
+        return tileState;
+    }
 
-    public int getColumnPosition() { return columnPosition; }
+    public int getColumnPosition() {
+        return columnPosition;
+    }
 
-    public int getRowPosition() { return rowPosition; }
+    public int getRowPosition() {
+        return rowPosition;
+    }
 
-    public void setRowPosition(int rowPosition){
+    public void setRowPosition(int rowPosition) {
         this.rowPosition = rowPosition;
     }
 
