@@ -9,7 +9,7 @@ import java.util.Date;
 public class Score {
     @Id
     @GeneratedValue
-    private int ident;
+    private int idScore;
 
     private String gameName;
 
@@ -37,45 +37,37 @@ public class Score {
         this.playedAt = playedAt;
     }
 
-    public int getIdent() {
-        return ident;
-    }
-
-    public void setIdent(int ident) {
-        this.ident = ident;
-    }
-
-    public String getGameName() {
-        return gameName;
-    }
-
-    public void setGameName(String game) {
-        this.gameName = game;
-    }
-
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public void setPlayerName(String player) {
-        this.playerName = player;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    public Date getPlayedAt() {
-        return playedAt;
-    }
-
-    public void setPlayedAt(Date playedAt) {
-        this.playedAt = playedAt;
-    }
+//    public String getGameName() {
+//        return gameName;
+//    }
+//
+//    public void setGameName(String game) {
+//        this.gameName = game;
+//    }
+//
+//    public String getPlayerName() {
+//        return playerName;
+//    }
+//
+//    public void setPlayerName(String player) {
+//        this.playerName = player;
+//    }
+//
+//    public int getPoints() {
+//        return points;
+//    }
+//
+//    public void setPoints(int points) {
+//        this.points = points;
+//    }
+//
+//    public Date getPlayedAt() {
+//        return playedAt;
+//    }
+//
+//    public void setPlayedAt(Date playedAt) {
+//        this.playedAt = playedAt;
+//    }
 
 
     /**
@@ -92,5 +84,6 @@ public class Score {
                 ", playedAt=" + playedAt +
                 "}\n";
     }
+
 
 }

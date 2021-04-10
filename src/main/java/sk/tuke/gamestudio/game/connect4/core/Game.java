@@ -17,9 +17,6 @@ public final class Game {
     @Autowired
     private final ConsoleUI ui;
 
-//    private final RatingServiceJDBC ratingService = new RatingServiceJDBC();
-//    private final CommentServiceJDBC commentService = new CommentServiceJDBC();
-
     // change these two variables to change playfield
     private final int playfieldWidth = 7;
     private final int playfieldHeight = 6;

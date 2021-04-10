@@ -72,10 +72,18 @@ public class ConsoleUI {
             if (!input.equals("x")) {
                 if (!input.equals("r")) {
                     if (input.equals("f")) { // handles commenting
-                        System.out.println("Write what you have on heart (max 150 symbols)");
-                        String comment = scanner.nextLine();
-                        commentService.addComment(new Comment(playerOnTurn.getName(), "connect4", comment, new Date()));
-                        System.out.println("thank you for feedback");
+                        do {
+                            System.out.println("Write what you have on heart (max 150 symbols). Type 'g' for see comments, 'b' to get back");
+                            String comment = scanner.nextLine();
+                            if (comment.equals("b")) break;
+                            if (comment.equals("g")) {
+                                System.out.println(commentService.getComments("connect4").toString());
+                                continue;
+                            }
+                            commentService.addComment(new Comment(playerOnTurn.getName(), "connect4", comment, new Date()));
+                            System.out.println("thank you for feedback");
+                            break;
+                        } while (true);
                     } else  if (input.equals("t")){ // handles top score
                         try {
                             System.out.println(scoreService.getTopScores("connect4").toString());
@@ -233,7 +241,7 @@ public class ConsoleUI {
      */
     public void endConnections() {
         scoreService.endConnection();
-//        commentService.endConnection();
-//        ratingService.endConnection();
+        commentService.endConnection();
+        ratingService.endConnection();
     }
 }

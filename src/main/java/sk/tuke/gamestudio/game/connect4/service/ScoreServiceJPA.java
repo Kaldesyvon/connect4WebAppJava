@@ -26,7 +26,7 @@ public class ScoreServiceJPA implements ScoreService {
 
     @Override
     public void reset() {
-        entityManager.createNativeQuery("truncate table score").executeUpdate();
+        entityManager.createQuery("delete from Score").executeUpdate();
     }
 
     @Override

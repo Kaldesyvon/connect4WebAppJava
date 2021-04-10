@@ -9,7 +9,7 @@ import java.util.Date;
 public class Rating {
     @Id
     @GeneratedValue
-    private int ident;
+    private int idRating;
 
     private String game;
 
@@ -47,9 +47,7 @@ public class Rating {
         return player;
     }
 
-    public Date getRatedOn() {
-        return ratedOn;
-    }
+//    public Date getRatedOn() { return ratedOn; }
 
     /**
      * Overridden toString to print in special format.

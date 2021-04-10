@@ -19,12 +19,13 @@ public class CommentServiceJPA implements CommentService {
 
     @Override
     public List<Comment> getComments(String game) {
-        return entityManager.createNativeQuery("select c from comment c").setMaxResults(10).getResultList();
+        return entityManager.createQuery("select c from Comment c order by c.commentedOn desc")
+                .setMaxResults(10).getResultList();
     }
 
     @Override
     public void reset() throws CommentException {
-        entityManager.createNativeQuery("truncate table comment");
+        entityManager.createQuery("delete from Comment");
     }
 
     @Override

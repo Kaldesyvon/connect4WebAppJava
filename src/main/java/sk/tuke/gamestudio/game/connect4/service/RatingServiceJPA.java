@@ -14,24 +14,34 @@ public class RatingServiceJPA implements RatingService {
 
     @Override
     public void setRating(Rating rating) {
-        entityManager.persist(rating);
+
+        if (getRating("connect4", rating.getPlayer()) == -1) {
+            entityManager.persist(rating);
+            System.out.println("novy rating");
+        }
+        else {
+            entityManager.createQuery("update Rating r set rating = " + rating.getRating() + "where player='" + rating.getPlayer() + "'")
+            .executeUpdate();
+            System.out.println("updatol som rating");
+        }
     }
 
     @Override
     public int getAverageRating(String game) {
-        Query q = entityManager.createNativeQuery("select avg(r.rating) from rating r");
-        int x = q.getFirstResult();
-        return x;
+        Query query = entityManager.createQuery("select avg(r.rating) from Rating r");
+        return ((Number)query.getSingleResult()).intValue();
     }
 
     @Override
     public int getRating(String game, String player) {
-        return entityManager.createNativeQuery("select rating from rating where player="+player).getFirstResult();
+        Query query = entityManager.createQuery("select r.rating from Rating as r where r.player ='" + player+ "'");
+        return query.getResultList()
+                .isEmpty() ? -1 : ((Number)query.getSingleResult()).intValue();
     }
 
     @Override
     public void reset() throws RatingException {
-        entityManager.createNativeQuery("truncate table rating").executeUpdate();
+        entityManager.createQuery("delete from Rating").executeUpdate();
     }
 
     @Override
