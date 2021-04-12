@@ -11,6 +11,4 @@ public interface RatingService {
     int getRating(String game, String player);
 
     void reset() throws RatingException;
-
-    void endConnection();
 }

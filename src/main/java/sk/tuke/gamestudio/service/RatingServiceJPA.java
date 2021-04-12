@@ -40,12 +40,7 @@ public class RatingServiceJPA implements RatingService {
     }
 
     @Override
-    public void reset() throws RatingException {
+    public void reset() {
         entityManager.createQuery("delete from Rating").executeUpdate();
-    }
-
-    @Override
-    public void endConnection() {
-
     }
 }

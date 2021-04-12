@@ -37,9 +37,9 @@ public class Comment {
         this.commentedOn = commentedOn;
     }
 
-//    public Date getCommentedOn() { return commentedOn; }
+    public Date getCommentedOn() { return commentedOn; }
 
-//    public String getComment() { return comment; }
+    public String getComment() { return comment; }
 
     public String getGame() {
         return game;

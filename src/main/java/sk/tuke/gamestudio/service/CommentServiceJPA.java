@@ -25,11 +25,6 @@ public class CommentServiceJPA implements CommentService {
 
     @Override
     public void reset() {
-        entityManager.createQuery("delete from Comment");
-    }
-
-    @Override
-    public void endConnection() {
-
+        entityManager.createNativeQuery("truncate table comment").executeUpdate();
     }
 }

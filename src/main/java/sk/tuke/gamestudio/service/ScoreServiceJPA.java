@@ -20,18 +20,13 @@ public class ScoreServiceJPA implements ScoreService {
     @Override
     @SuppressWarnings("unchecked")
     public List<Score> getTopScores(String name) {
-        return entityManager.createQuery("select s from Score s where s.gameName = :game order by s.points desc")
-                .setParameter("game", name)
+        return entityManager.createQuery("select s from Score s order by s.points desc")
                 .setMaxResults(10).getResultList();
     }
 
     @Override
     public void reset() {
-        entityManager.createQuery("delete from Score").executeUpdate();
+        entityManager.createNativeQuery("truncate table score").executeUpdate();
     }
 
-    @Override
-    public void endConnection() {
-
-    }
 }

@@ -10,6 +10,4 @@ public interface CommentService {
     List<Comment> getComments(String game);
 
     void reset() throws CommentException;
-
-    void endConnection();
 }

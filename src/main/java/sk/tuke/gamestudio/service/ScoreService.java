@@ -10,6 +10,4 @@ public interface ScoreService {
     List<Score> getTopScores(String name);
 
     void reset();
-
-    void endConnection();
 }

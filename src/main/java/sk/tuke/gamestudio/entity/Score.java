@@ -11,11 +11,11 @@ public class Score {
     @GeneratedValue
     private int idScore;
 
-    private String gameName;
+    private String game;
 
 //    private final String opponentName;
 
-    private String playerName;
+    private String player;
 
     private int points;
 
@@ -27,49 +27,49 @@ public class Score {
     /**
      * Creates score that is send to database so I can see results of players.
      *
-     * @param gameName   name of game that is "connect4" obviously
-     * @param playerName player's name
+     * @param game   name of game that is "connect4" obviously
+     * @param player player's name
      * @param points     points that player earned
      * @param playedAt   date at which score was added
      */
-    public Score(String gameName, String playerName, int points, Date playedAt) {
-        this.gameName = gameName;
-        this.playerName = playerName;
+    public Score(String game, String player, int points, Date playedAt) {
+        this.game = game;
+        this.player = player;
         this.points = points;
         this.playedAt = playedAt;
     }
 
-//    public String getGameName() {
-//        return gameName;
-//    }
-//
-//    public void setGameName(String game) {
-//        this.gameName = game;
-//    }
-//
-//    public String getPlayerName() {
-//        return playerName;
-//    }
-//
-//    public void setPlayerName(String player) {
-//        this.playerName = player;
-//    }
-//
-//    public int getPoints() {
-//        return points;
-//    }
-//
-//    public void setPoints(int points) {
-//        this.points = points;
-//    }
-//
-//    public Date getPlayedAt() {
-//        return playedAt;
-//    }
-//
-//    public void setPlayedAt(Date playedAt) {
-//        this.playedAt = playedAt;
-//    }
+    public String getGame() {
+        return game;
+    }
+
+    public void setGame(String game) {
+        this.game = game;
+    }
+
+    public String getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(String player) {
+        this.player = player;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public Date getPlayedAt() {
+        return playedAt;
+    }
+
+    public void setPlayedAt(Date playedAt) {
+        this.playedAt = playedAt;
+    }
 
 
     /**
@@ -80,8 +80,8 @@ public class Score {
     @Override
     public String toString() {
         return "Score{" +
-                "game='" + gameName + '\'' +
-                "player='" + playerName + '\'' +
+                "game='" + game + '\'' +
+                "player='" + player + '\'' +
 //                ", opponent='" + opponentName + '\'' +
                 ", points=" + points +
                 ", playedAt=" + playedAt +

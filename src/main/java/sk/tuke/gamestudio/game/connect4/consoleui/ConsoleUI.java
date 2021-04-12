@@ -246,13 +246,4 @@ public class ConsoleUI {
         scoreService.addScore(new Score("connect4", player1.getName(), player1.getScore(), new Date()));
         scoreService.addScore(new Score("connect4", player2.getName(), player2.getScore(), new Date()));
     }
-
-    /**
-     * Ends connection with all services (score, rating, comment)
-     */
-    public void endConnections() {
-        scoreService.endConnection();
-        commentService.endConnection();
-        ratingService.endConnection();
-    }
 }

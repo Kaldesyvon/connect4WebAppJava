@@ -5,7 +5,11 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import sk.tuke.gamestudio.game.connect4.consoleui.ConsoleUI;
 import sk.tuke.gamestudio.game.connect4.core.Game;
 import sk.tuke.gamestudio.game.connect4.core.Playfield;
@@ -14,6 +18,8 @@ import sk.tuke.gamestudio.service.*;
 
 @SpringBootApplication
 @Configuration
+@ComponentScan(excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX,
+        pattern = "sk.tuke.gamestudio.server.*"))
 public class SpringClient {
     public static void main(String[] args) {
         new SpringApplicationBuilder(SpringClient.class).web(WebApplicationType.NONE).run(args);
@@ -36,22 +42,21 @@ public class SpringClient {
     }
 
     @Bean
-    public Playfield playfield() {
-        return new Playfield(7, 6);
-    }
+    public Playfield playfield() { return new Playfield(7, 6); }
 
     @Bean
     public ScoreService scoreService() {
-        return new ScoreServiceJPA();
+        return new ScoreServiceRestClient();
     }
 
     @Bean
-    CommentService commentService() {
-        return new CommentServiceJPA();
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 
     @Bean
-    public RatingService ratingService() {
-        return new RatingServiceJPA();
-    }
+    public CommentService commentService() { return new CommentServiceRestClient(); }
+
+    @Bean
+    public RatingService ratingService() { return new RatingServiceRestClient(); }
 }

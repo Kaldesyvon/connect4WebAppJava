@@ -1,14 +1,13 @@
 package sk.tuke.gamestudio.server.webservice;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sk.tuke.gamestudio.entity.Score;
 import sk.tuke.gamestudio.service.ScoreService;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/score")
@@ -16,12 +15,19 @@ public class ScoreServiceRest {
     @Autowired
     private ScoreService scoreService;
 
-    public void addScore(Score score) {
+    @PostMapping
+    public void addScore(@RequestBody Score score) {
         scoreService.addScore(score);
     }
 
     @GetMapping("/{game}")
     public List<Score> getTopScores(@PathVariable String game) {
         return scoreService.getTopScores(game);
+    }
+
+    @PostMapping(value = "/reset", consumes = "application/json")
+    public void reset(@RequestBody String body) {
+        String password = new JSONObject(body).getString("password");
+        if (password.equals("secret")) scoreService.reset();
     }
 }

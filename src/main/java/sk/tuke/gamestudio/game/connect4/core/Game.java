@@ -73,7 +73,6 @@ public final class Game {
                 continue;
             }
             ui.addScoreToDB(redPlayer, yellowPlayer);
-            ui.endConnections();
             break;
         }
     }
