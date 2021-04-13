@@ -16,7 +16,6 @@ import sk.tuke.gamestudio.service.ScoreService;
 import java.util.Date;
 import java.util.Scanner;
 
-
 public class ConsoleUI {
     /**
      * Variables that are used to color the console.
@@ -28,13 +27,12 @@ public class ConsoleUI {
     /**
      * Services that manages tables in database
      */
-
     @Autowired
-    private final ScoreService scoreService;
+    private ScoreService scoreService;
     @Autowired
-    private final CommentService commentService;
+    private CommentService commentService;
     @Autowired
-    private final RatingService ratingService;
+    private RatingService ratingService;
 
     @Autowired
     private final Playfield playfield;
@@ -49,10 +47,7 @@ public class ConsoleUI {
      * //     * @throws CommentException if connection to service in database is failed
      * //     * @throws RatingException if connection to rating service in database is failed
      */
-    public ConsoleUI(Playfield playfield, ScoreService scoreService, CommentService commentService, RatingService ratingService) {
-        this.scoreService = scoreService;
-        this.commentService = commentService;
-        this.ratingService = ratingService;
+    public ConsoleUI(Playfield playfield) {
         this.playfield = playfield;
         stones = playfield.getTiles();
     }
@@ -113,23 +108,37 @@ public class ConsoleUI {
                     }
                 } else { // handles rating
                     int rating;
-                    System.out.println("Rate this game (1-10)");
+                    System.out.println("Rate this game (1-10). Press 'g' to get your recent rating and 'b' to get back");
                     do {
                         String line = scanner.nextLine();
-                        try {
-                            rating = Integer.parseInt(line);
-                            if (rating >= 1 && rating <= 10) {
-                                break;
+                        if (line.equals("b")) {
+                            break;
+                        }
+                        if (line.equals("g")) {
+                            int stars = ratingService.getRating("connect4", playerOnTurn.getName());
+                            if (stars == -1) {
+                                System.out.println("You have not rated yet");
                             } else {
-                                System.out.println("rating out of range");
+                                System.out.println(stars);
+                                break;
                             }
-                        } catch (Exception ex) {
-                            System.out.println("wrong input");
+                        }
+                        else {
+                            try {
+                                rating = Integer.parseInt(line);
+                                if (rating >= 1 && rating <= 10) {
+                                    ratingService.setRating(new Rating("connect4", playerOnTurn.getName(), rating, new Date()));
+                                    System.out.println("Average is " + ratingService.getAverageRating("connect4"));
+                                    System.out.println("Thank you for rating");
+                                    break;
+                                } else {
+                                    System.out.println("rating out of range");
+                                }
+                            } catch (Exception ex){
+                                System.out.println("wrong input");
+                            }
                         }
                     } while (true);
-                    ratingService.setRating(new Rating("connect4", playerOnTurn.getName(), rating, new Date()));
-                    System.out.println("Average is " + ratingService.getAverageRating("connect4"));
-                    System.out.println("Thank you for rating");
                 }
             } else { // handles exit
                 addScoreToDB(playerOnTurn, otherPlayer);

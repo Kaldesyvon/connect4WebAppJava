@@ -31,8 +31,8 @@ public class SpringClient {
     }
 
     @Bean
-    public ConsoleUI consoleUI(Playfield playfield, ScoreService ss, CommentService cs, RatingService rs) {
-        return new ConsoleUI(playfield, ss, cs, rs);
+    public ConsoleUI consoleUI(Playfield playfield) {
+        return new ConsoleUI(playfield);
     }
 
     @Bean

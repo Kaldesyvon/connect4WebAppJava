@@ -26,7 +26,7 @@ public class RatingServiceRestClient implements RatingService {
 
     @Override
     public int getRating(String game, String player) {
-        return 0;
+        return Objects.requireNonNull(restTemplate.getForEntity(url + '/' + game + '/' + player, Integer.class).getBody());
     }
 
     @Override
