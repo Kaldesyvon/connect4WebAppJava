@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import sk.tuke.gamestudio.game.connect4.consoleui.ConsoleUI;
 import sk.tuke.gamestudio.game.connect4.core.Game;
