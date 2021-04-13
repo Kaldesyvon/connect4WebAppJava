@@ -43,9 +43,8 @@ public class ConsoleUI {
 
     /**
      * Main part of game, here are handled inputs and outputs.
-     * <p>
-     * //     * @throws CommentException if connection to service in database is failed
-     * //     * @throws RatingException if connection to rating service in database is failed
+     *
+     * @param playfield playfield which is game played on
      */
     public ConsoleUI(Playfield playfield) {
         this.playfield = playfield;
