@@ -15,7 +15,6 @@ public class RatingServiceJPA implements RatingService {
 
     @Override
     public void setRating(Rating rating) {
-
         if (getRating("connect4", rating.getPlayer()) == -1) {
             entityManager.persist(rating);
             System.out.println("novy rating");
@@ -29,6 +28,9 @@ public class RatingServiceJPA implements RatingService {
     @Override
     public int getAverageRating(String game) {
         Query query = entityManager.createQuery("select avg(r.rating) from Rating r");
+        if (query.getSingleResult() == null) {
+            return -1;
+        }
         return ((Number) query.getSingleResult()).intValue();
     }
 
