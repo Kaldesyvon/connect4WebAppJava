@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gamestudio</title>
+</head>
+<body>
+    <span th:if="${@indexController.isLogged}">
+        Logged User: <span th:text="${@indexController.user.login}"></span>
+    </span>
+
+    <h1>Connect4</h1>
+    <a href="/connect4/new">New Game</a>
+    <span th:utext="${htmlField}"/>
+</body>
+</html>

@@ -7,15 +7,14 @@ public final class Game {
 
     private Color firstPlayer = Color.RED;
 
-    @Autowired
     private final Playfield playfield;
 
-    private final Player redPlayer;
+//    private final Player redPlayer;
+//
+//    private final Player yellowPlayer;
 
-    private final Player yellowPlayer;
-
-    @Autowired
-    private final ConsoleUI ui;
+//    @Autowired
+//    private final ConsoleUI ui;
 
     // change these two variables to change playfield
     private final int playfieldWidth = 7;
@@ -26,55 +25,54 @@ public final class Game {
      * //     * @throws CommentException if connection to comment service in database is failed
      * //     * @throws RatingException if connection to rating service in database is failed
      */
-    public Game(ConsoleUI ui, Playfield playfield) /*throws RatingException, CommentException*/ {
+    public Game(Playfield playfield) {
         this.playfield = playfield;
-        this.ui = ui;
-        redPlayer = ui.createPlayer(Color.RED);
-        yellowPlayer = ui.createPlayer(Color.YELLOW);
+//        this.redPlayer = redPlayer;
+//        this.yellowPlayer = yellowPlayer;
     }
 
     /**
      * Main game loop and UI calls. When game ends first player is switched.
      */
     public void play() {
-        while (true) {
-            int columnInput;
-
-            Player playerOnTurn = redPlayer.getColor() == firstPlayer ? redPlayer : yellowPlayer;
-
-            int turns = 0; // game must be ended in width * height moves at most
-            int maxTurns = playfieldWidth * playfieldHeight;
-
-            do {
-                ui.showPlayfield();
-                columnInput = ui.processInput(playerOnTurn, switchPlayers(playerOnTurn));
-
-                if (!playerOnTurn.addStone(columnInput)) {
-                    System.out.println("Stone cannot be added");
-                    continue;
-                }
-
-                turns++;
-                playerOnTurn = switchPlayers(playerOnTurn);
-            } while (!playfield.checkForWin() && turns != maxTurns);
-
-            ui.showPlayfield();
-
-            if (turns == maxTurns) {
-                ui.tie(redPlayer, yellowPlayer);
-            } else {
-                ui.win(switchPlayers(playerOnTurn), (playerOnTurn));
-            }
-            ui.printScores(redPlayer, yellowPlayer);
-
-            if (ui.playAgain()) {
-                emptyPlayfield();
-                firstPlayer = switchPlayers(firstPlayer);
-                continue;
-            }
-            ui.addScoreToDB(redPlayer, yellowPlayer);
-            break;
-        }
+//        while (true) {
+//            int columnInput;
+//
+//            Player playerOnTurn = redPlayer.getColor() == firstPlayer ? redPlayer : yellowPlayer;
+//
+//            int turns = 0; // game must be ended in width * height moves at most
+//            int maxTurns = playfieldWidth * playfieldHeight;
+//
+//            do {
+//                ui.showPlayfield();
+//                columnInput = ui.processInput(playerOnTurn, switchPlayers(playerOnTurn));
+//
+//                if (!playfield.addStone(columnInput, playerOnTurn.getColor())) {
+//                    System.out.println("Stone cannot be added");
+//                    continue;
+//                }
+//
+//                turns++;
+//                playerOnTurn = switchPlayers(playerOnTurn);
+//            } while (!playfield.checkForWin() && turns != maxTurns);
+//
+//            ui.showPlayfield();
+//
+//            if (turns == maxTurns) {
+//                ui.tie(redPlayer, yellowPlayer);
+//            } else {
+//                ui.win(switchPlayers(playerOnTurn), (playerOnTurn));
+//            }
+//            ui.printScores(redPlayer, yellowPlayer);
+//
+//            if (ui.playAgain()) {
+//                emptyPlayfield();
+//                firstPlayer = switchPlayers(firstPlayer);
+//                continue;
+//            }
+//            ui.addScoreToDB(redPlayer, yellowPlayer);
+//            break;
+//        }
     }
 
     private void emptyPlayfield() {
@@ -89,7 +87,12 @@ public final class Game {
         return color == Color.RED ? Color.YELLOW : Color.RED;
     }
 
-    private Player switchPlayers(Player player) {
-        return player.getColor() == Color.RED ? yellowPlayer : redPlayer;
-    }
+//    private Player switchPlayers(Player player) {
+//        return player.getColor() == Color.RED ? yellowPlayer : redPlayer;
+//    }
+
+//    private Player createPlayer(Color color) {
+//        System.out.println("Enter name of " + (color == Color.RED ? "RED" : "YELLOW") + " player ");
+//        return new Player(line, color);
+//    }
 }

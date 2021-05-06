@@ -7,7 +7,9 @@ import java.util.List;
 public interface ScoreService {
     void addScore(Score score);
 
-    List<Score> getTopScores(String name);
+    List<Score> getTopScores(String game);
+
+    List<Score> getTopScoresOfPlayer(String game, String player);
 
     void reset();
 }

@@ -14,7 +14,6 @@ import sk.tuke.gamestudio.game.connect4.core.Game;
 import sk.tuke.gamestudio.game.connect4.core.Playfield;
 import sk.tuke.gamestudio.service.*;
 
-
 @SpringBootApplication
 @Configuration
 @ComponentScan(excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX,
@@ -31,14 +30,7 @@ public class SpringClient {
     }
 
     @Bean
-    public ConsoleUI consoleUI(Playfield playfield) {
-        return new ConsoleUI(playfield);
-    }
-
-    @Bean
-    Game game(ConsoleUI ui, Playfield playfield) {
-        return new Game(ui, playfield);
-    }
+    Game game(Playfield playfield) { return new Game(playfield); }
 
     @Bean
     public Playfield playfield() { return new Playfield(7, 6); }

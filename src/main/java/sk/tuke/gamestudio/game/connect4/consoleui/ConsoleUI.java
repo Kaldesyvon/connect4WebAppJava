@@ -229,7 +229,7 @@ public class ConsoleUI {
     public Player createPlayer(Color color) {
         System.out.println("Enter name of " + (color == Color.RED ? "RED" : "YELLOW") + " player ");
         String line = scanner.nextLine();
-        return new Player(line, color, playfield);
+        return new Player(line, color);
     }
 
     /**

@@ -21,8 +21,13 @@ public class ScoreServiceRestClient implements ScoreService{
     }
 
     @Override
-    public List<Score> getTopScores(String name) {
-        return Arrays.asList(Objects.requireNonNull(restTemplate.getForEntity(url + '/' + name, Score[].class).getBody()));
+    public List<Score> getTopScores(String game) {
+        return Arrays.asList(Objects.requireNonNull(restTemplate.getForEntity(url + '/' + game, Score[].class).getBody()));
+    }
+
+    @Override
+    public List<Score> getTopScoresOfPlayer(String game, String player) {
+        return Arrays.asList(Objects.requireNonNull(restTemplate.getForEntity(url+'/'+game+'/'+player, Score[].class).getBody()));
     }
 
     @Override

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Score</title>
+</head>
+<body>
+    <h1>Scores:</h1>
+    <h2>Find by player's name:</h2>
+    <form action="/score">
+        Name:<input type="text" name="player">
+    </form>
+    <span th:if="{@scoreController.isFound}">
+        <h4>
+            <ol>
+                <li th:each="score:${scores}">
+                    <span th:text="${score.player}"/>
+                    <span th:text="${score.points}"/>
+                </li>
+            </ol>
+        </h4>
+    </span>
+    <span th:if="!{@scoreController.isFound}">
+        User did not scored
+    </span>
+</body>
+</html>

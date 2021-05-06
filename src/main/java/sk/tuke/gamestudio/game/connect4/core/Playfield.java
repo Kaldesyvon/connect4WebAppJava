@@ -32,6 +32,34 @@ public class Playfield {
     }
 
     /**
+     * Adds stone to playfield and stone falls down.
+     *
+     * @param column which column player added to playfield
+     * @return true if stone was successfully added, otherwise false
+     */
+    public boolean addStone(int column, Color color) {
+        int rowPos = 0;
+//        Stone[][] stones = playfield.getTiles();
+
+        if (stones[0][column] != null) {
+            return false;
+        }
+
+        Stone stone = new Stone(color, column);
+
+        while (rowPos < height - 1) {
+            if (stones[rowPos + 1][column] == null) {
+                rowPos++;
+            } else {
+                break;
+            }
+        }
+        stones[rowPos][column] = stone;
+        stones[rowPos][column].setRowPosition(rowPos);
+        return true;
+    }
+
+    /**
      * Checks playfield for 4 stones in row one by one and check all 8 directions if possible
      *
      * @return true if game is won, otherwise false

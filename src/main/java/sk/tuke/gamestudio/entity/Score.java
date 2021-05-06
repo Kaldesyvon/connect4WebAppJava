@@ -51,8 +51,8 @@ public class Score {
         return player;
     }
 
-    public void setPlayer(String player) {
-        this.player = player;
+    public void setPlayer(String name) {
+        this.player = name;
     }
 
     public int getPoints() {

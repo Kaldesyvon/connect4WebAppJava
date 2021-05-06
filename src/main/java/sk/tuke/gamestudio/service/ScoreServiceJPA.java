@@ -19,8 +19,15 @@ public class ScoreServiceJPA implements ScoreService {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Score> getTopScores(String name) {
+    public List<Score> getTopScores(String game) {
         return entityManager.createQuery("select s from Score s order by s.points desc")
+                .setMaxResults(10).getResultList();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Score> getTopScoresOfPlayer(String game, String player) {
+        return entityManager.createQuery("select s from Score s where s.player='" + player +"' order by s.points desc")
                 .setMaxResults(10).getResultList();
     }
 

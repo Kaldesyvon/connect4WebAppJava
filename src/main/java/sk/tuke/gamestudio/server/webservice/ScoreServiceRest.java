@@ -12,8 +12,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/score")
 public class ScoreServiceRest {
-    @Autowired
-    private ScoreService scoreService;
+    private final ScoreService scoreService;
+
+    public ScoreServiceRest(ScoreService scoreService) {
+        this.scoreService = scoreService;
+    }
 
     @PostMapping
     public void addScore(@RequestBody Score score) {
@@ -23,6 +26,11 @@ public class ScoreServiceRest {
     @GetMapping("/{game}")
     public List<Score> getTopScores(@PathVariable String game) {
         return scoreService.getTopScores(game);
+    }
+
+    @GetMapping("/{game}/{name}")
+    public List<Score> getTopScores(@PathVariable String game, @PathVariable String name) {
+        return scoreService.getTopScoresOfPlayer(game, name);
     }
 
     @PostMapping(value = "/reset", consumes = "application/json")
