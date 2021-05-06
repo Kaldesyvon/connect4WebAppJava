@@ -37,4 +37,5 @@ public class GameStudioServer {
 
     @Bean
     public Playfield playfield() { return new Playfield(7,6); }
+
 }

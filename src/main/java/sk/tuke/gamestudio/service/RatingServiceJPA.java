@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 public class RatingServiceJPA implements RatingService {
@@ -38,6 +39,12 @@ public class RatingServiceJPA implements RatingService {
         Query query = entityManager.createQuery("select r.rating from Rating as r where r.player ='" + player + "'");
         return query.getResultList()
                 .isEmpty() ? -1 : ((Number) query.getSingleResult()).intValue();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Rating> getRatings(String game) {
+        return (List<Rating>) entityManager.createQuery("select r from Rating r order by r.ratedOn desc").getResultList();
     }
 
     @Override

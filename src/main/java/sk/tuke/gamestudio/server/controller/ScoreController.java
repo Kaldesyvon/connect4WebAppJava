@@ -1,10 +1,12 @@
 package sk.tuke.gamestudio.server.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import sk.tuke.gamestudio.entity.Score;
+import sk.tuke.gamestudio.entity.UserEntity;
 import sk.tuke.gamestudio.service.ScoreService;
 
 import java.util.List;
@@ -13,16 +15,13 @@ import java.util.List;
 @RequestMapping("/score")
 public class ScoreController {
     private boolean playerFound;
-    private final ScoreService scoreService;
-
-    public ScoreController(ScoreService scoreService) {
-        this.scoreService = scoreService;
-    }
+    @Autowired
+    private ScoreService scoreService;
 
     @RequestMapping()
     public String showScores(@RequestParam(required = false)String player, Model model) {
         playerFound = true;
-        if (player == null){
+        if (player == null || player.equals("")){
             model.addAttribute("scores", scoreService.getTopScores("connect4"));
         }
         else {
@@ -36,5 +35,4 @@ public class ScoreController {
     }
 
     public boolean isFound() { return playerFound; }
-
 }

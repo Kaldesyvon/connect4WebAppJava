@@ -6,9 +6,16 @@
     <title>Gamestudio</title>
 </head>
 <body>
+    <a href="/">home</a>
     <a href="/score">score</a>
     <a href="/comment">comment</a>
     <a href="/rating">rating</a>
+    <span th:if="${@indexController.isLogged}">
+        <a href="/logout">Logout</a><br>
+        Logged User:
+        <span th:text="${@indexController.user.login}"></span>
+    </span>
+
     <h1>My favorite games</h1>
     <ol>
         <li><a href="/connect4">connect4</a></li>

@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 import sk.tuke.gamestudio.entity.Rating;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class RatingServiceRestClient implements RatingService {
@@ -27,6 +29,11 @@ public class RatingServiceRestClient implements RatingService {
     @Override
     public int getRating(String game, String player) {
         return Objects.requireNonNull(restTemplate.getForEntity(url + '/' + game + '/' + player, Integer.class).getBody());
+    }
+
+    @Override
+    public List<Rating> getRatings(String game) {
+        return Arrays.asList(Objects.requireNonNull(restTemplate.getForEntity(url+'/'+game, Rating[].class).getBody()));
     }
 
     @Override

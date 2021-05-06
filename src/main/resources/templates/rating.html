@@ -1,10 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Rating</title>
 </head>
 <body>
+
+    <a href="/">home</a>
+    <a href="/score">score</a>
+    <a href="/comment">comment</a>
+    <a href="/rating">rating</a>
+    <span th:if="${@indexController.isLogged}">
+        <a href="/logout">Logout</a><br>
+        Logged User:
+        <span th:text="${@indexController.user.login}"></span>
+    </span>
+
+    <h1>Ratings:</h1>
+    <span th:if="${@indexController.isLogged}">
+        <h2>Add rating:</h2>
+        <form action="/rating/add">
+            Rate(1-10):<input type="text" name="rating">
+        </form>
+    </span>
+    <h2>Find rating by player's name:</h2>
+    <form action="/rating">
+        Name:<input type="text" name="player">
+    </form>
+    <h4 th:if="${@ratingController.isFound}">
+        <ol>
+            <li th:each="rating:${ratings}">
+                <span th:text="${rating.player}"/>
+                <span th:text="${rating.rating}"/>
+            </li>
+        </ol>
+    </h4>
+
+    <h4 th:if="${@ratingController.isShownOnePlayer}">
+        <span th:text="${playerName}"/>
+        <span th:text="${playerRating}"/>
+    </h4>
+
+    <span th:if="not ${@ratingController.isFound}">
+            User did not rate
+    </span>
 
 </body>
 </html>

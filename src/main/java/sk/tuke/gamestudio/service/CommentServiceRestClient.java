@@ -25,6 +25,11 @@ public class CommentServiceRestClient implements CommentService {
     }
 
     @Override
+    public List<Comment> getCommentsByPlayer(String game, String player) {
+        return Arrays.asList(Objects.requireNonNull(restTemplate.getForEntity(url + '/' + game + '/' + player, Comment[].class).getBody()));
+    }
+
+    @Override
     public void reset() throws CommentException {
         throw new UnsupportedOperationException("Not supported via web service");
     }

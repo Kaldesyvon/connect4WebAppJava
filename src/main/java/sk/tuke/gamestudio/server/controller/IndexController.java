@@ -12,12 +12,8 @@ import sk.tuke.gamestudio.service.UserService;
 @Scope(WebApplicationContext.SCOPE_SESSION)
 public class IndexController {
     private UserEntity user;
-
-    private final UserService userService;
-
-    public IndexController(UserService userService) {
-        this.userService = userService;
-    }
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/")
     public String index() {
@@ -28,10 +24,12 @@ public class IndexController {
     public String login(String login, String password) {
         user = userService.getUser(login);
         if(user == null){
-            userService.addUser(new UserEntity(login, password));
-            return "redirect:/";
+            user = new UserEntity(login, password);
+            UserTransporter.setUser(user);
+            userService.addUser(user);
         }
-        if (user.getPassword().equals(password)) {
+        else if (user.getPassword().equals(password)) {
+            UserTransporter.setUser(user);
             return "redirect:/connect4";
         }
         return "redirect:/";
@@ -40,14 +38,15 @@ public class IndexController {
     @RequestMapping("/logout")
     public String logout() {
         user = null;
+        UserTransporter.setUser(null);
         return "redirect:/";
     }
 
     public UserEntity getUser() {
-        return user;
+        return UserTransporter.getUser();
     }
 
     public boolean isLogged() {
-        return user != null;
+        return UserTransporter.isLogged();
     }
 }

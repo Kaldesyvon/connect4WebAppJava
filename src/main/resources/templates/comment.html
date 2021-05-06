@@ -1,10 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Comments</title>
 </head>
 <body>
+    <a href="/">home</a>
+    <a href="/score">score</a>
+    <a href="/comment">comment</a>
+    <a href="/rating">rating</a>
+    <span th:if="${@indexController.isLogged}">
+        <a href="/logout">Logout</a><br>
+        Logged User:
+        <span th:text="${@indexController.user.login}"></span>
+    </span>
+
+    <h1>Comments:</h1>
+    <span th:if="${@indexController.isLogged}">
+        <h2>Add comment:</h2>
+        <form action="/comment/add">
+            Comment:<input type="text" name="comment">
+        </form>
+    </span>
+    <span>
+        <h2>Find comment by player's name:</h2>
+    </span>
+
+    <form action="/comment">
+        Name:<input type="text" name="player">
+    </form>
+    <h4 th:if="${@commentController.isFound}">
+        <ol>
+            <li th:each="comment:${comments}">
+                <span th:text="${comment.player}"/>
+                says:
+                <span th:text="${comment.comment}"/>
+            </li>
+        </ol>
+    </h4>
+    <span th:if="not ${@commentController.isFound}">
+        User did not comment
+    </span>
 
 </body>
 </html>

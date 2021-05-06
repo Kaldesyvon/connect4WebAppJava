@@ -6,22 +6,31 @@
     <title>Score</title>
 </head>
 <body>
+<!--to iste co comment, len nemozes pridat vlastne score-->
+    <a href="/">home</a>
+    <a href="/score">score</a>
+    <a href="/comment">comment</a>
+    <a href="/rating">rating</a>
+    <span th:if="${@indexController.isLogged}">
+        <a href="/logout">Logout</a><br>
+        Logged User:
+        <span th:text="${@indexController.user.login}"></span>
+    </span>
     <h1>Scores:</h1>
-    <h2>Find by player's name:</h2>
+    <h2>Find score by player's name:</h2>
     <form action="/score">
         Name:<input type="text" name="player">
     </form>
-    <span th:if="{@scoreController.isFound}">
-        <h4>
-            <ol>
-                <li th:each="score:${scores}">
-                    <span th:text="${score.player}"/>
-                    <span th:text="${score.points}"/>
-                </li>
-            </ol>
-        </h4>
-    </span>
-    <span th:if="!{@scoreController.isFound}">
+    <h4 th:if="${@scoreController.isFound}">
+        <ol>
+            <li th:each="score:${scores}">
+                <span th:text="${score.player}"/>
+                <span th:text="${score.points}"/>
+            </li>
+        </ol>
+    </h4>
+
+    <span th:if="not ${@scoreController.isFound}">
         User did not scored
     </span>
 </body>

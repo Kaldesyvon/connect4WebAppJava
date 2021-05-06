@@ -7,6 +7,8 @@ import sk.tuke.gamestudio.entity.Rating;
 import sk.tuke.gamestudio.service.RatingException;
 import sk.tuke.gamestudio.service.RatingService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/rating")
 public class RatingServiceRest {
@@ -21,6 +23,9 @@ public class RatingServiceRest {
 
     @GetMapping("/{game}/average")
     public int getAverageRating(@PathVariable String game) { return ratingService.getAverageRating(game); }
+
+    @GetMapping("/{game}")
+    public List<Rating> getRatings(@PathVariable String game) { return ratingService.getRatings(game); }
 
     @PostMapping(value = "/reset", consumes = "application/json")
     public void reset(@RequestBody String body) throws RatingException {

@@ -9,5 +9,7 @@ public interface CommentService {
 
     List<Comment> getComments(String game);
 
+    List<Comment> getCommentsByPlayer(String game, String player);
+
     void reset() throws CommentException;
 }

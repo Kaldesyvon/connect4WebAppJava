@@ -1,14 +1,14 @@
 package sk.tuke.gamestudio.server.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
+import sk.tuke.gamestudio.entity.UserEntity;
 import sk.tuke.gamestudio.game.connect4.core.*;
-import sk.tuke.gamestudio.service.ScoreService;
+
 
 @Controller
 @RequestMapping("/connect4")
@@ -81,7 +81,6 @@ public class Connect4Controller {
         model.addAttribute("htmlField", getHtmlField());
 //        model.addAttribute("scores", scoreService.getTopScores("connect4"));
     }
-
 
     private Player switchPlayers(Player player) {
         return player.getColor() == Color.RED ? yellowPlayer : redPlayer;
