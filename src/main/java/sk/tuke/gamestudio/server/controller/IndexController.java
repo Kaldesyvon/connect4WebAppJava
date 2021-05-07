@@ -23,12 +23,11 @@ public class IndexController {
     @RequestMapping("/login")
     public String login(String login, String password) {
         user = userService.getUser(login);
-        if(user == null){
+        if (user == null) {
             user = new UserEntity(login, password);
             UserTransporter.setUser(user);
             userService.addUser(user);
-        }
-        else if (user.getPassword().equals(password)) {
+        } else if (user.getPassword().equals(password)) {
             UserTransporter.setUser(user);
             return "redirect:/connect4";
         }

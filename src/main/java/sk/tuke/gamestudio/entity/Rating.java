@@ -49,7 +49,9 @@ public class Rating {
         return player;
     }
 
-    public Date getRatedOn() { return ratedOn; }
+    public Date getRatedOn() {
+        return ratedOn;
+    }
 
     /**
      * Overridden toString to print in special format.

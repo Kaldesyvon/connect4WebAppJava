@@ -14,7 +14,8 @@ public class UserEntity {
 
     private String password;
 
-    public UserEntity() { }
+    public UserEntity() {
+    }
 
     public UserEntity(String login, String password) {
         this.login = login;

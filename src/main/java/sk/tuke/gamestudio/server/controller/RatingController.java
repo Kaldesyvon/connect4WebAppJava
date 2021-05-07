@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import sk.tuke.gamestudio.entity.Rating;
-import sk.tuke.gamestudio.entity.UserEntity;
 import sk.tuke.gamestudio.service.RatingService;
 
 import java.util.Date;
@@ -28,8 +27,7 @@ public class RatingController {
         model.addAttribute("average", ratingService.getAverageRating("connect4"));
         if (player == null || player.equals("")) {
             model.addAttribute("ratings", ratingService.getRatings("connect4"));
-        }
-        else {
+        } else {
             int rating = ratingService.getRating("connect4", player);
             if (rating == -1)
                 playerFound = false;
@@ -44,7 +42,7 @@ public class RatingController {
 
     @RequestMapping("/add")
     public String addRating(@RequestParam int rating) {
-        if (rating > 10 || rating < 0){
+        if (rating > 10 || rating < 0) {
             ratingOutOfRange = true;
         } else {
             ratingService.setRating(new Rating("connect4", UserTransporter.getUser().getLogin(), rating, new Date()));

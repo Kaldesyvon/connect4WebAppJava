@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import sk.tuke.gamestudio.entity.Comment;
-import sk.tuke.gamestudio.entity.UserEntity;
 import sk.tuke.gamestudio.service.CommentService;
 
 import java.util.Date;
@@ -16,17 +15,15 @@ import java.util.List;
 @RequestMapping("/comment")
 public class CommentController {
     private boolean playerFound;
-    private boolean logged;
     @Autowired
     private CommentService commentService;
 
     @RequestMapping()
-    public String showComments(@RequestParam(required = false)String player, Model model) {
+    public String showComments(@RequestParam(required = false) String player, Model model) {
         playerFound = true;
-        if (player == null || player.equals("")){
+        if (player == null || player.equals("")) {
             model.addAttribute("comments", commentService.getComments("connect4"));
-        }
-        else {
+        } else {
             List<Comment> comments = commentService.getCommentsByPlayer("connect4", player);
             model.addAttribute("comments", comments);
             if (comments.isEmpty())
@@ -43,5 +40,7 @@ public class CommentController {
         return "redirect:/comment";
     }
 
-    public boolean isFound() { return playerFound; }
+    public boolean isFound() {
+        return playerFound;
+    }
 }

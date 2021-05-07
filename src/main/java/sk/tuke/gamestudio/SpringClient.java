@@ -1,6 +1,7 @@
 package sk.tuke.gamestudio;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -9,7 +10,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.web.client.RestTemplate;
-import sk.tuke.gamestudio.game.connect4.consoleui.ConsoleUI;
 import sk.tuke.gamestudio.game.connect4.core.Game;
 import sk.tuke.gamestudio.game.connect4.core.Playfield;
 import sk.tuke.gamestudio.service.*;
@@ -21,7 +21,7 @@ import sk.tuke.gamestudio.service.*;
 public class SpringClient {
     public static void main(String[] args) {
         new SpringApplicationBuilder(SpringClient.class).web(WebApplicationType.NONE).run(args);
-//        SpringApplication.run(SpringClient.class);
+        SpringApplication.run(SpringClient.class);
     }
 
     @Bean
@@ -30,10 +30,14 @@ public class SpringClient {
     }
 
     @Bean
-    Game game(Playfield playfield) { return new Game(playfield); }
+    Game game(Playfield playfield) {
+        return new Game(playfield);
+    }
 
     @Bean
-    public Playfield playfield() { return new Playfield(7, 6); }
+    public Playfield playfield() {
+        return new Playfield(7, 6);
+    }
 
     @Bean
     public ScoreService scoreService() {
@@ -46,8 +50,12 @@ public class SpringClient {
     }
 
     @Bean
-    public CommentService commentService() { return new CommentServiceRestClient(); }
+    public CommentService commentService() {
+        return new CommentServiceRestClient();
+    }
 
     @Bean
-    public RatingService ratingService() { return new RatingServiceRestClient(); }
+    public RatingService ratingService() {
+        return new RatingServiceRestClient();
+    }
 }

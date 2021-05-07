@@ -34,6 +34,4 @@ public class Stone {
     public void setRowPosition(int rowPosition) {
         this.rowPosition = rowPosition;
     }
-
-
 }

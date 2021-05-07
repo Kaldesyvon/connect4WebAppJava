@@ -1,7 +1,6 @@
 package sk.tuke.gamestudio.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.client.RestTemplate;
 import sk.tuke.gamestudio.entity.Rating;
 
@@ -33,7 +32,7 @@ public class RatingServiceRestClient implements RatingService {
 
     @Override
     public List<Rating> getRatings(String game) {
-        return Arrays.asList(Objects.requireNonNull(restTemplate.getForEntity(url+'/'+game, Rating[].class).getBody()));
+        return Arrays.asList(Objects.requireNonNull(restTemplate.getForEntity(url + '/' + game, Rating[].class).getBody()));
     }
 
     @Override

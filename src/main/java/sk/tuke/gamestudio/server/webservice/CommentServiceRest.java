@@ -16,10 +16,14 @@ public class CommentServiceRest {
     private CommentService commentService;
 
     @PostMapping
-    public void addComment(@RequestBody Comment comment){ commentService.addComment(comment); }
+    public void addComment(@RequestBody Comment comment) {
+        commentService.addComment(comment);
+    }
 
     @GetMapping("/{game}")
-    public List<Comment> getComments(@PathVariable String game){ return commentService.getComments(game); }
+    public List<Comment> getComments(@PathVariable String game) {
+        return commentService.getComments(game);
+    }
 
     @PostMapping(value = "/reset")
     public void reset(@RequestBody String body) throws CommentException {

@@ -27,10 +27,10 @@ public class Score {
     /**
      * Creates score that is send to database so I can see results of players.
      *
-     * @param game   name of game that is "connect4" obviously
-     * @param player player's name
-     * @param points     points that player earned
-     * @param playedAt   date at which score was added
+     * @param game     name of game that is "connect4" obviously
+     * @param player   player's name
+     * @param points   points that player earned
+     * @param playedAt date at which score was added
      */
     public Score(String game, String player, int points, Date playedAt) {
         this.game = game;

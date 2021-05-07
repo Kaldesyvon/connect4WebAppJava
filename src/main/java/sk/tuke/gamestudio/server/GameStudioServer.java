@@ -33,9 +33,12 @@ public class GameStudioServer {
     }
 
     @Bean
-    public UserService userService() { return new UserServiceJPA(); }
+    public UserService userService() {
+        return new UserServiceJPA();
+    }
 
     @Bean
-    public Playfield playfield() { return new Playfield(7,6); }
-
+    public Playfield playfield() {
+        return new Playfield(7, 6);
+    }
 }

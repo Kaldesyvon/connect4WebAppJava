@@ -4,45 +4,84 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
-import sk.tuke.gamestudio.entity.UserEntity;
+import sk.tuke.gamestudio.entity.Score;
 import sk.tuke.gamestudio.game.connect4.core.*;
+import sk.tuke.gamestudio.service.ScoreService;
 
+import java.util.Date;
 
 @Controller
 @RequestMapping("/connect4")
 @Scope(WebApplicationContext.SCOPE_SESSION)
 public class Connect4Controller {
-    private Playfield playfield;
-    private final Player redPlayer = new Player("jozo", Color.RED);
-    private final Player yellowPlayer = new AI(playfield);
-    private Player playerOnTurn = redPlayer;
 
-    public Connect4Controller(Playfield playfield) {
+    private Playfield playfield;
+    private final Player redPlayer;
+    private final AI yellowPlayer;
+    private final int maxTurns;
+    private int turn = 0;
+    private GameState gameState = GameState.PLAYING;
+    private boolean showScore = false;
+    private final ScoreService scoreService;
+
+    public Connect4Controller(Playfield playfield, ScoreService scoreService) {
         this.playfield = playfield;
+        this.redPlayer = new Player("jozef", Color.RED);
+        this.yellowPlayer = new AI(playfield);
+        maxTurns = playfield.getHeight() * playfield.getHeight();
+        this.scoreService = scoreService;
     }
 
-
-    @RequestMapping
+    @RequestMapping(method = RequestMethod.GET)
     public String connect4(@RequestParam(required = false) String column, @RequestParam(required = false) Color color, Model model) {
-        try {
-            playfield.addStone(Integer.parseInt(column), color);
-            playerOnTurn = switchPlayers(playerOnTurn);
-        } catch (Exception ex) {
-            System.out.println("Zle parametre");
+        if (column != null && color != null && gameState == GameState.PLAYING) {
+            boolean validTurn = false;
+            while (!validTurn) {
+                validTurn = playfield.addStone(Integer.parseInt(column), color);
+            }
+            if (playfield.checkForWin()) {
+                gameState = GameState.RED_WIN;
+                if (UserTransporter.isLogged())
+                    redPlayer.addPoints(10);
+            }
+            validTurn = false;
+            // TODO: bot vyhodnoti najlepsi move, aj ked sa tam uz neda dat.
+            while (!validTurn && gameState == GameState.PLAYING) {
+                validTurn = yellowPlayer.addStone();
+            }
+            if (playfield.checkForWin() && gameState == GameState.PLAYING) {
+                gameState = GameState.YELLOW_WIN;
+                if (UserTransporter.isLogged())
+                    redPlayer.addPoints(-5);
+            }
         }
-
         addToModel(model);
-
         return "connect4";
     }
 
+    // TODO: nova referencia na playfield
     @RequestMapping("/new")
     public String newGame(Model model) {
-        playfield = new Playfield(7, 6);
+        turn = 0;
+        reset();
         addToModel(model);
         return "redirect:/connect4";
+    }
+
+    @RequestMapping("/add")
+    public String submitScore(Model model) {
+        addToModel(model);
+        scoreService.addScore(new Score("connect4", UserTransporter.getUser().getLogin(), redPlayer.getScore(), new Date()));
+        return "connect4";
+    }
+
+    private void reset() {
+        playfield = new Playfield(7, 6);
+        yellowPlayer.setRealPlayfield(playfield);
+        gameState = GameState.PLAYING;
     }
 
     public String getHtmlField() {
@@ -55,7 +94,7 @@ public class Connect4Controller {
             for (int column = 0; column < 7; column++) {
                 Stone[][] tile = playfield.getTiles();
                 sb.append("<td>\n");
-                sb.append(String.format("<a href='/connect4?column=%d&color=%s'>", column, playerOnTurn.getColor()));
+                sb.append(String.format("<a href='/connect4?column=%d&color=%s'>", column, Color.RED));
                 sb.append("<img src='/images/connect4/").append(getImageName(tile[row][column])).append(".png'>");
                 sb.append("</a>");
                 sb.append("</td>\n");
@@ -79,10 +118,10 @@ public class Connect4Controller {
 
     public void addToModel(Model model) {
         model.addAttribute("htmlField", getHtmlField());
-//        model.addAttribute("scores", scoreService.getTopScores("connect4"));
+        model.addAttribute("score", redPlayer.getScore());
     }
 
-    private Player switchPlayers(Player player) {
-        return player.getColor() == Color.RED ? yellowPlayer : redPlayer;
-    }
+//    private Player switchPlayers(Player player) {
+//        return player.getColor() == Color.RED ? yellowPlayer : redPlayer;
+//    }
 }

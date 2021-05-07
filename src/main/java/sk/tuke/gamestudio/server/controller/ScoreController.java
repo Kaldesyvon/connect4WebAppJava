@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import sk.tuke.gamestudio.entity.Score;
-import sk.tuke.gamestudio.entity.UserEntity;
 import sk.tuke.gamestudio.service.ScoreService;
 
 import java.util.List;
@@ -19,12 +18,11 @@ public class ScoreController {
     private ScoreService scoreService;
 
     @RequestMapping()
-    public String showScores(@RequestParam(required = false)String player, Model model) {
+    public String showScores(@RequestParam(required = false) String player, Model model) {
         playerFound = true;
-        if (player == null || player.equals("")){
+        if (player == null || player.equals("")) {
             model.addAttribute("scores", scoreService.getTopScores("connect4"));
-        }
-        else {
+        } else {
             List<Score> scores = scoreService.getTopScoresOfPlayer("connect4", player);
             model.addAttribute("scores", scores);
             if (scores.isEmpty())
@@ -34,5 +32,7 @@ public class ScoreController {
         return "score";
     }
 
-    public boolean isFound() { return playerFound; }
+    public boolean isFound() {
+        return playerFound;
+    }
 }

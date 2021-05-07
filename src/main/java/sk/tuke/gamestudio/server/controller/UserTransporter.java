@@ -14,6 +14,7 @@ public class UserTransporter {
         UserTransporter.user = user;
 
     }
+
     public static UserEntity getUser() {
         return user;
     }

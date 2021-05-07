@@ -1,8 +1,5 @@
 package sk.tuke.gamestudio.game.connect4.core;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import sk.tuke.gamestudio.game.connect4.consoleui.ConsoleUI;
-
 public final class Game {
 
     private Color firstPlayer = Color.RED;

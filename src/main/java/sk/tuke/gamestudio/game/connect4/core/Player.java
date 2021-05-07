@@ -7,8 +7,6 @@ public class Player {
 
     private final Color color;
 
-//    private final Playfield playfield;
-
     /**
      * Creates instance of Player. They need to be exact two of this instance.
      *
@@ -17,9 +15,9 @@ public class Player {
      *              //     * @param playfield playfield which game is played on
      */
     public Player(String name, final Color color) {
+
         this.name = name;
         this.color = color;
-//        this.playfield = playfield;
     }
 
     /**
@@ -42,6 +40,4 @@ public class Player {
     public Color getColor() {
         return color;
     }
-
-
 }

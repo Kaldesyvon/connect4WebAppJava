@@ -1,7 +1,10 @@
 package sk.tuke.gamestudio.game.connect4.core;
 
-public class Playfield {
-    private final Stone[][] stones;
+import org.springframework.stereotype.Service;
+
+@Service
+public class Playfield implements Cloneable {
+    private Stone[][] stones;
 
     private final int width;
 
@@ -39,13 +42,11 @@ public class Playfield {
      */
     public boolean addStone(int column, Color color) {
         int rowPos = 0;
-//        Stone[][] stones = playfield.getTiles();
 
         if (stones[0][column] != null) {
             return false;
         }
-
-        Stone stone = new Stone(color, column);
+        var stone = new Stone(color, column);
 
         while (rowPos < height - 1) {
             if (stones[rowPos + 1][column] == null) {
@@ -58,6 +59,7 @@ public class Playfield {
         stones[rowPos][column].setRowPosition(rowPos);
         return true;
     }
+
 
     /**
      * Checks playfield for 4 stones in row one by one and check all 8 directions if possible
@@ -105,5 +107,14 @@ public class Playfield {
             }
         }
         return true;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        Playfield clone = (Playfield) super.clone();
+        for (int i = 0; i < getHeight(); i++) {
+            clone.stones[i] = this.stones[i].clone();
+        }
+        return clone;
     }
 }

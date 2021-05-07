@@ -1,6 +1,5 @@
 package sk.tuke.gamestudio.service;
 
-
 import sk.tuke.gamestudio.entity.Rating;
 
 import javax.persistence.EntityManager;
@@ -29,7 +28,7 @@ public class RatingServiceJPA implements RatingService {
     @Override
     public int getAverageRating(String game) {
         Query query = entityManager.createQuery("select avg(r.rating) from Rating r");
-        if (query.getSingleResult() == null)  return -1;
+        if (query.getSingleResult() == null) return -1;
 
         return ((Number) query.getSingleResult()).intValue();
     }

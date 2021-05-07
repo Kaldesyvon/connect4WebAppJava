@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class ScoreServiceRestClient implements ScoreService{
+public class ScoreServiceRestClient implements ScoreService {
 
     private final String url = "http://localhost:8080/api/score";
 
@@ -27,7 +27,7 @@ public class ScoreServiceRestClient implements ScoreService{
 
     @Override
     public List<Score> getTopScoresOfPlayer(String game, String player) {
-        return Arrays.asList(Objects.requireNonNull(restTemplate.getForEntity(url+'/'+game+'/'+player, Score[].class).getBody()));
+        return Arrays.asList(Objects.requireNonNull(restTemplate.getForEntity(url + '/' + game + '/' + player, Score[].class).getBody()));
     }
 
     @Override

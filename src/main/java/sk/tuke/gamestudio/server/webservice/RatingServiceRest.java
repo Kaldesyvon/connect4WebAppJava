@@ -16,16 +16,24 @@ public class RatingServiceRest {
     private RatingService ratingService;
 
     @PostMapping
-    public void addRating(@RequestBody Rating rating) { ratingService.setRating(rating); }
+    public void addRating(@RequestBody Rating rating) {
+        ratingService.setRating(rating);
+    }
 
     @GetMapping("/{game}/{player}")
-    public int getRatings(@PathVariable String game, @PathVariable String player) { return ratingService.getRating(game, player); }
+    public int getRatings(@PathVariable String game, @PathVariable String player) {
+        return ratingService.getRating(game, player);
+    }
 
     @GetMapping("/{game}/average")
-    public int getAverageRating(@PathVariable String game) { return ratingService.getAverageRating(game); }
+    public int getAverageRating(@PathVariable String game) {
+        return ratingService.getAverageRating(game);
+    }
 
     @GetMapping("/{game}")
-    public List<Rating> getRatings(@PathVariable String game) { return ratingService.getRatings(game); }
+    public List<Rating> getRatings(@PathVariable String game) {
+        return ratingService.getRatings(game);
+    }
 
     @PostMapping(value = "/reset", consumes = "application/json")
     public void reset(@RequestBody String body) throws RatingException {

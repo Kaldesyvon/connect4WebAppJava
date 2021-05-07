@@ -27,7 +27,7 @@ public class CommentServiceJPA implements CommentService {
     @Override
     @SuppressWarnings("unchecked")
     public List<Comment> getCommentsByPlayer(String game, String player) {
-        return entityManager.createQuery("select c from Comment c where c.player='"+player+"' order by c.commentedOn desc")
+        return entityManager.createQuery("select c from Comment c where c.player='" + player + "' order by c.commentedOn desc")
                 .setMaxResults(10).getResultList();
     }
 
