@@ -5,43 +5,54 @@
     <meta charset="UTF-8">
     <title>Comments</title>
 </head>
-<body>
-    <a href="/">home</a>
-    <a href="/score">score</a>
-    <a href="/comment">comment</a>
-    <a href="/rating">rating</a>
-    <span th:if="${@indexController.isLogged}">
-        <a href="/logout">Logout</a><br>
-        Logged User:
-        <span th:text="${@indexController.user.login}"></span>
-    </span>
+<link rel="stylesheet" href="css/main.css">
 
-    <h1>Comments:</h1>
+<body>
+
+<ul class="nav-bar">
+    <li class= "li-navbar"><a href="/">Home</a></li>
+    <li class= "li-navbar"><a href="connect4">Play</a></li>
+    <li class= "li-navbar"><a href="score">Score</a></li>
+    <li class= "li-navbar"><a href="/comment">Comment</a></li>
+    <li class= "li-navbar"><a href="/rating">Rating</a></li>
+
     <span th:if="${@indexController.isLogged}">
-        <h2>Add comment:</h2>
-        <form action="/comment/add">
-            Comment:<input type="text" name="comment">
+        <li class="a-logout" style="float: right;">
+            <p><a  href="/logout">Logout</a></p>
+            <p>Logged User: <span th:text="${@indexController.user.login}"></span></p>
+    </li>
+    </span>
+</ul>
+    <span th:if="${@indexController.isLogged}">
+        
+        <form class= "form-login" action="/comment/add">
+            <h2>Add comment:</h2>
+            <input type="text" name="comment" placeholder="Your comment">
         </form>
     </span>
-    <span>
-        <h2>Find comment by player's name:</h2>
-    </span>
 
-    <form action="/comment">
-        Name:<input type="text" name="player">
+    <form class= "form-login" action="/comment">
+        <h2>Find comment by name:</h2>
+        <input type="text" name="player" placeholder="Name">
     </form>
-    <h4 th:if="${@commentController.isFound}">
-        <ol>
-            <li th:each="comment:${comments}">
-                <span th:text="${comment.player}"/>
-                says:
-                <span th:text="${comment.comment}"/>
-            </li>
-        </ol>
-    </h4>
-    <span th:if="not ${@commentController.isFound}">
-        User did not comment
-    </span>
+
+    <div class="middle-text">
+        <h4 th:if="${@commentController.isFound}">
+            <ol>
+                <li th:each="comment:${comments}">
+                    <span th:text="${comment.player}"/>
+                    <p> says:</p>
+                    <span th:text="${comment.comment}"/>
+                </li>
+            </ol>
+        </h4>
+        <span th:if="not ${@commentController.isFound}">
+            <p>User did not comment</p>
+        </span>
+    </div>
+<div class="footer-fixed">
+    <h3>Created by Martin Novysedlák</h3>
+</div>
 
 </body>
 </html>

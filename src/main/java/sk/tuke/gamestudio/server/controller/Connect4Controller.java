@@ -48,7 +48,6 @@ public class Connect4Controller {
                     redPlayer.addPoints(10);
             }
             validTurn = false;
-            // TODO: bot vyhodnoti najlepsi move, aj ked sa tam uz neda dat.
             while (!validTurn && gameState == GameState.PLAYING) {
                 validTurn = yellowPlayer.addStone();
             }
@@ -62,7 +61,6 @@ public class Connect4Controller {
         return "connect4";
     }
 
-    // TODO: nova referencia na playfield
     @RequestMapping("/new")
     public String newGame(Model model) {
         turn = 0;
@@ -87,7 +85,7 @@ public class Connect4Controller {
     public String getHtmlField() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("<table>\n");
+        sb.append("<table class='playfield'>\n");
 
         for (int row = 0; row < 6; row++) {
             sb.append("<tr>\n");

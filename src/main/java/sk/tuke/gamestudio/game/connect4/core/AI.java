@@ -42,9 +42,10 @@ public class AI {
 
         for (int col = 0; col < cols; col++) {
             experimentalPlayfield = copyRealPfToExPf();
-            experimentalPlayfield.addStone(col, AIColor);
+            if (!experimentalPlayfield.addStone(col, AIColor)) continue;
+
             var score = scorePosition(experimentalPlayfield, AIColor);
-            if (col == 3) score += 2;
+            if (col == 3) score += 3;
             if (score > bestScore) {
                 bestScore = score;
                 bestCol = col;
@@ -56,7 +57,7 @@ public class AI {
     private int scorePosition(Playfield playfield, Color color) {
         int score = 0;
         var stones = playfield.getTiles();
-        // score horizntal
+        // score horizontal
         for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
             var row = stones[rowIndex];
             for (int colIndex = 0; colIndex < cols - 3; colIndex++) {
@@ -74,8 +75,39 @@ public class AI {
         for (int colIndex = 0; colIndex < cols; colIndex++) {
             // fill column
             var column = rotateClockwise(stones)[colIndex];
-            for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
+            for (int rowIndex = 0; rowIndex < rows-3; rowIndex++) {
                 var window = Arrays.copyOfRange(column, rowIndex, rowIndex + 4);
+                if (countStones(window, color) == 4) {
+                    score += 1000;
+                } else if (countStones(window, color) == 3 && countNulls(window) == 1) {
+                    score += 20;
+                } else if (countStones(window, color) == 2 && countNulls(window) == 2) {
+                    score += 5;
+                }
+            }
+        }
+        // score diagonal to left down
+        for (int rowIndex = 0; rowIndex < rows - 3; rowIndex++) {
+            for (int colIndex = 0; colIndex < cols - 3; colIndex++) {
+                var window = new Stone[4];
+                for (int i = 0; i < 4; i++) {
+                    window[i] = stones[rowIndex+i][colIndex+i];
+                }
+                if (countStones(window, color) == 4) {
+                    score += 1000;
+                } else if (countStones(window, color) == 3 && countNulls(window) == 1) {
+                    score += 20;
+                } else if (countStones(window, color) == 2 && countNulls(window) == 2) {
+                    score += 5;
+                }
+            }
+        }
+        for (int rowIndex = 0; rowIndex < rows - 3; rowIndex++) {
+            for (int colIndex = 3; colIndex < cols; colIndex++) {
+                var window = new Stone[4];
+                for (int i = 0; i < 4; i++) {
+                    window[i] = stones[rowIndex + i][colIndex - i];
+                }
                 if (countStones(window, color) == 4) {
                     score += 1000;
                 } else if (countStones(window, color) == 3 && countNulls(window) == 1) {

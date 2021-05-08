@@ -5,26 +5,105 @@
     <meta charset="UTF-8">
     <title>Gamestudio</title>
 </head>
+<link rel="stylesheet" href="css/main.css">
 <body>
-    <a href="/">home</a>
-    <a href="/score">score</a>
-    <a href="/comment">comment</a>
-    <a href="/rating">rating</a>
-    <span th:if="${@indexController.isLogged}">
-        <a href="/logout">Logout</a><br>
-        Logged User:
-        <span th:text="${@indexController.user.login}"></span>
-    </span>
+    <div class="landing_page">
+        <a href="/connect4">
+            <svg id="logo" width="794" height="116" viewBox="0 0 794 116" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.328 58.744C5.328 48.952 7.584 40.168 12.096 32.392C16.704 24.616 22.896 18.568 30.672 14.248C38.544 9.832 47.136 7.624 56.448 7.624C67.104 7.624 76.56 10.264 84.816 15.544C93.168 20.728 99.216 28.12 102.96 37.72H83.232C80.64 32.44 77.04 28.504 72.432 25.912C67.824 23.32 62.496 22.024 56.448 22.024C49.824 22.024 43.92 23.512 38.736 26.488C33.552 29.464 29.472 33.736 26.496 39.304C23.616 44.872 22.176 51.352 22.176 58.744C22.176 66.136 23.616 72.616 26.496 78.184C29.472 83.752 33.552 88.072 38.736 91.144C43.92 94.12 49.824 95.608 56.448 95.608C62.496 95.608 67.824 94.312 72.432 91.72C77.04 89.128 80.64 85.192 83.232 79.912H102.96C99.216 89.512 93.168 96.904 84.816 102.088C76.56 107.272 67.104 109.864 56.448 109.864C47.04 109.864 38.448 107.704 30.672 103.384C22.896 98.968 16.704 92.872 12.096 85.096C7.584 77.32 5.328 68.536 5.328 58.744Z" stroke="#FF5858" stroke-width="5" mask="url(#path-1-outside-1)"/>
+                <path d="M167.823 110.008C158.511 110.008 149.919 107.848 142.047 103.528C134.271 99.112 128.079 93.016 123.471 85.24C118.959 77.368 116.703 68.536 116.703 58.744C116.703 48.952 118.959 40.168 123.471 32.392C128.079 24.616 134.271 18.568 142.047 14.248C149.919 9.832 158.511 7.624 167.823 7.624C177.231 7.624 185.823 9.832 193.599 14.248C201.471 18.568 207.663 24.616 212.175 32.392C216.687 40.168 218.943 48.952 218.943 58.744C218.943 68.536 216.687 77.368 212.175 85.24C207.663 93.016 201.471 99.112 193.599 103.528C185.823 107.848 177.231 110.008 167.823 110.008ZM167.823 95.752C174.447 95.752 180.351 94.264 185.535 91.288C190.719 88.216 194.751 83.896 197.631 78.328C200.607 72.664 202.095 66.136 202.095 58.744C202.095 51.352 200.607 44.872 197.631 39.304C194.751 33.736 190.719 29.464 185.535 26.488C180.351 23.512 174.447 22.024 167.823 22.024C161.199 22.024 155.295 23.512 150.111 26.488C144.927 29.464 140.847 33.736 137.871 39.304C134.991 44.872 133.551 51.352 133.551 58.744C133.551 66.136 134.991 72.664 137.871 78.328C140.847 83.896 144.927 88.216 150.111 91.288C155.295 94.264 161.199 95.752 167.823 95.752Z" stroke="#FF5858" stroke-width="5" mask="url(#path-1-outside-1)"/>
+                <path d="M317.321 109H300.905L251.513 34.264V109H235.097V8.776H251.513L300.905 83.368V8.776H317.321V109Z" stroke="#FF5858" stroke-width="5" mask="url(#path-1-outside-1)"/>
+                <path d="M421.102 109H404.686L355.294 34.264V109H338.878V8.776H355.294L404.686 83.368V8.776H421.102V109Z" stroke="#FF5858" stroke-width="5" mask="url(#path-1-outside-1)"/>
+                <path d="M459.075 22.168V51.544H493.635V64.936H459.075V95.608H497.955V109H442.659V8.776H497.955V22.168H459.075Z" stroke="#FF5858" stroke-width="5" mask="url(#path-1-outside-1)"/>
+                <path d="M512.703 58.744C512.703 48.952 514.959 40.168 519.471 32.392C524.079 24.616 530.271 18.568 538.047 14.248C545.919 9.832 554.511 7.624 563.823 7.624C574.479 7.624 583.935 10.264 592.191 15.544C600.543 20.728 606.591 28.12 610.335 37.72H590.607C588.015 32.44 584.415 28.504 579.807 25.912C575.199 23.32 569.871 22.024 563.823 22.024C557.199 22.024 551.295 23.512 546.111 26.488C540.927 29.464 536.847 33.736 533.871 39.304C530.991 44.872 529.551 51.352 529.551 58.744C529.551 66.136 530.991 72.616 533.871 78.184C536.847 83.752 540.927 88.072 546.111 91.144C551.295 94.12 557.199 95.608 563.823 95.608C569.871 95.608 575.199 94.312 579.807 91.72C584.415 89.128 588.015 85.192 590.607 79.912H610.335C606.591 89.512 600.543 96.904 592.191 102.088C583.935 107.272 574.479 109.864 563.823 109.864C554.415 109.864 545.823 107.704 538.047 103.384C530.271 98.968 524.079 92.872 519.471 85.096C514.959 77.32 512.703 68.536 512.703 58.744Z" stroke="#FF5858" stroke-width="5" mask="url(#path-1-outside-1)"/>
+                <path d="M694.206 8.92V22.312H667.566V109H651.15V22.312H624.366V8.92H694.206Z" stroke="#FF5858" stroke-width="5" mask="url(#path-1-outside-1)"/>
+                <path d="M706.655 87.112V74.728L755.039 5.32001H774.911V72.856H788.303V87.112H774.911V109H758.783V87.112H706.655ZM759.503 22.024L725.519 72.856H759.503V22.024Z" stroke="#FF5858" stroke-width="5" mask="url(#path-1-outside-1)"/>
+            </svg>
+        </a>
+        <script src="app/landing_page.js"></script>
+    </div>
 
-    <h1>My favorite games</h1>
-    <ol>
-        <li><a href="/connect4">connect4</a></li>
-    </ol>
+    <ul class="nav-bar">
+        <li class= "li-navbar"><a href="/">Home</a></li>
+        <li class= "li-navbar"><a href="connect4">Play</a></li>
+        <li class= "li-navbar"><a href="score">Score</a></li>
+        <li class= "li-navbar"><a href="/comment">Comment</a></li>
+        <li class= "li-navbar"><a href="/rating">Rating</a></li>
 
-    <form action="/login" method="post">
-        Login: <input type="text" name="login"/><br>
-        Password <input type="password" name="password"><br>
-        <input type="submit">
+        <span th:if="${@indexController.isLogged}">
+            <li class="a-logout" style="float: right;">
+                <p><a  href="/logout">Logout</a></p>
+                <p>Logged User: <span th:text="${@indexController.user.login}"></span></p>
+            </li>
+        </span>
+    </ul>
+
+    <form class= "form-login" action="/login" method="post">
+        <h1>Login</h1>
+        <input type="text" name="login" placeholder="Username"/>
+        <input type="password" name="password" placeholder="Password">
+        <input type="submit" name="submit" value="Login">
     </form>
+
+    <div class="rules">
+        <p>Connect 4 is a strategy game played both by children and adults tracing back to 1974. It quickly became a very popular game 
+            due to its easy rules and the variety of strategies that players may use in order to win. Connect 4 is an excellent game to
+             work your children’s brain cells. Playable as a pencil and paper game or online in a multiplayer setting with different colored 
+            circles looking like discs, the game keeps you perfectly going on a long journey or through boring classes.
+            On <a href="https://papergames.io/" target="_blank">papergames.io</a> you
+             can play Connect 4 multiplayer online with your friends or hundreds of players worldwide. Follow our strategies and tactics out,
+              you will quickly rise to Number One!</p>
+        <h1>Rules</h1>
+        <p>
+            The four in a row rules are very simple. It’s always played with 2 players and in a 7x6 grid. Each turn each player puts a piece 
+            of his color inside a column and it will fall until it reaches the lowest available spot. The one who can put 4 pieces of the same 
+            color in a row horizontally, vertically or diagonally wins. If no one manages to do it then the match ends in a draw.
+        </p>
+
+        <h1>Strategies and tactics to win at Connect 4 online</h1>
+
+        <h3>At the start of the game</h3>
+        <p>
+            In order to start well a Connect 4 game on board, paper or online, it is important to place a maximum of checkers in
+            the middle column so that you maximize possibilities of aligning 4 checkers in the following turns. This tactic prevents your 
+            opponent of doing the same while using column. The next step is to elaborate a strategy consisting of traps which shall pressure 
+            your opponent into playing a move leading to your victory by aligning on row or reduced column and thus obtaining a higher ranking!
+        </p>
+
+        <h3>The double line at Connect 4</h3>
+        <p>
+            One simple way of trapping your opponent at Connect 4 game on board, paper or online is to create a winning double line
+            (two lines which lack one checker in order to have a line of 4) in order to compel them to make a move which would lead to you being 
+            able to align a line of 4 at the next turn.
+        </p>
+
+        <h3>How to beat a novice at Connect 4</h3>
+        <p>
+            Whenever you start a Connect 4 game and your opponent is not attentive, you may try to align three checkers on the lowest line. 
+            Your opponent shall then only have the choice between reacting on the left or on the right, in whichever case you win the game!
+        </p>
+
+        <h3>Blocking columns</h3>
+        <p>
+            The following strategy should be mastered if you wish to obtain a higher ranking at Connect 4 game while trying to win horizontally 
+            or vertically: try to block columns in such a way that whenever your opponent places a checker or pieces of discs on a row or a column, 
+            you would win at the next turn (or it would lead to a double line). The goal is to lead your opponent into making moves he does not want to 
+            make and which enable you the freedom of developing traps for the next steps.
+        </p>
+
+        <h3>Connect 4 on play</h3>
+        <p>
+            If you are playing Connect 4 on board while using pieces of discs, you’re time to play will be noticed by a red block.
+            It will be surrounding your avatar including your score and nickname. During the games, it will be up to you to use whatever row you 
+            find suitable to put the pieces of discs. The 4 pieces will have to aligned diagonally, horizontally or vertically so that you could win. 
+            Strategies on Connect 4 games allow you to play while keeping your opponent away from controling their move anytime the red block give 
+            them turn. You then control the row from middle since the begining to win horizontally at your final turn on the red block appearance.
+        </p>
+    </div>
+
+    <div class="footer">
+        <h3>Created by Martin Novysedlák</h3>
+    </div>
+
 </body>
 </html>

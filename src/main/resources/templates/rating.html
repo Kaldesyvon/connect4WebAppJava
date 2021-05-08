@@ -5,46 +5,57 @@
     <meta charset="UTF-8">
     <title>Rating</title>
 </head>
+<link rel="stylesheet" href="css/main.css">
+
 <body>
+<ul class="nav-bar">
+    <li class= "li-navbar"><a href="/">Home</a></li>
+    <li class= "li-navbar"><a href="connect4">Play</a></li>
+    <li class= "li-navbar"><a href="score">Score</a></li>
+    <li class= "li-navbar"><a href="/comment">Comment</a></li>
+    <li class= "li-navbar"><a href="/rating">Rating</a></li>
 
-    <a href="/">home</a>
-    <a href="/score">score</a>
-    <a href="/comment">comment</a>
-    <a href="/rating">rating</a>
     <span th:if="${@indexController.isLogged}">
-        <a href="/logout">Logout</a><br>
-        Logged User:
-        <span th:text="${@indexController.user.login}"></span>
+        <li class="a-logout" style="float: right;">
+            <p><a  href="/logout">Logout</a></p>
+            <p>Logged User: <span th:text="${@indexController.user.login}"></span></p></li>
     </span>
-
-    <h1>Ratings:</h1>
+</ul>
     <span th:if="${@indexController.isLogged}">
-        <h2>Add rating:</h2>
-        <form action="/rating/add">
-            Rate(1-10):<input type="text" name="rating">
+        <form class= "form-login" action="/rating/add">
+            <h2>Add rating</h2>
+            <input type="text" name="rating" placeholder="Rate(1-10)">
         </form>
     </span>
-    <h2>Find rating by player's name:</h2>
-    <form action="/rating">
-        Name:<input type="text" name="player">
+
+    <form class= "form-login" action="/rating">
+        <h2>Find rating by name</h2>
+        <input type="text" name="player" placeholder="Name">
     </form>
-    <h4 th:if="${@ratingController.isFound}">
-        <ol>
-            <li th:each="rating:${ratings}">
-                <span th:text="${rating.player}"/>
-                <span th:text="${rating.rating}"/>
-            </li>
-        </ol>
-    </h4>
 
-    <h4 th:if="${@ratingController.isShownOnePlayer}">
-        <span th:text="${playerName}"/>
-        <span th:text="${playerRating}"/>
-    </h4>
+    <div class="middle-text">
+        <h4 th:if="${@ratingController.isFound}">
+            <ol>
+                <li th:each="rating:${ratings}">
+                    <span th:text="${rating.player}"/>
+                    <span th:text="${rating.rating}"/>
+                </li>
+            </ol>
+        </h4>
+    
+        <h4 th:if="${@ratingController.isShownOnePlayer}">
+            <span th:text="${playerName}"/>
+            <span th:text="${playerRating}"/>
+        </h4>
+    
+        <span th:if="not ${@ratingController.isFound}">
+                User did not rate
+        </span>
+    </div>
 
-    <span th:if="not ${@ratingController.isFound}">
-            User did not rate
-    </span>
+    <div class="footer-fixed">
+        <h3>Created by Martin Novysedlák</h3>
+    </div>
 
 </body>
 </html>
