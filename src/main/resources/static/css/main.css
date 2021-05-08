@@ -54,17 +54,14 @@ body{
 
   .a-logout p {
     display: block;
-    padding-right: 10px;
-    color: white;
+      color: white;
     text-align: center;
     padding: 14px 16px;
-    
+
   }
-  
-  /* animacia pre CONECT4*/
 
   .landing_page{
-      /*tu si to nastav nejak tak akurat na tvoju obrazovku :D zeby bol ten navbar na spodku :D */
+
       margin-bottom: 48%;
   }
 
@@ -75,8 +72,6 @@ body{
     transform: translate(-50%, -50%);
     animation: fill 0.5s ease forwards 1.5s;
 }
-
-/* kazde pismenko ma inu dlzku obrysu.*/
 
 #logo path:nth-child(1){
     stroke-dasharray: 500px;
@@ -114,12 +109,9 @@ body{
     animation: line-anim 1s ease forwards;
 
 }
-
-/* z neznamych pricin to musi byt tak */
 #logo path:nth-child(8){
     stroke-dasharray: 480px;
     stroke-dashoffset: 480px;
-    animation: line-anim 3s ease forwards;
     animation: fill-4 0.5s ease forwards 1.5s;
 }
 
@@ -171,7 +163,6 @@ body{
 
 
 .form-login input[type = "text"], .form-login input[type = "password"]{
-    border: 0;
     background: none;
     display: block;
     margin: 20px auto;
@@ -191,7 +182,6 @@ body{
 }
 
 .form-login input[type = "submit"]{
-    border: 0;
     background: none;
     display: block;
     margin: 20px auto;

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class Playfield implements Cloneable {
-    private Stone[][] stones;
+    private final Stone[][] stones;
 
     private final int width;
 
@@ -66,13 +66,12 @@ public class Playfield implements Cloneable {
      *
      * @return true if game is won, otherwise false
      */
-    public boolean checkForWin() {
+    public boolean checkForWin(Color color) {
         for (int rowIndex = 0; rowIndex < height; rowIndex++) {
             for (int columnIndex = 0; columnIndex < width; columnIndex++) {
-                if (stones[rowIndex][columnIndex] != null) {
+                if (stones[rowIndex][columnIndex] != null && stones[rowIndex][columnIndex].getTileState() == color) {
                     int stoneRowPosition = stones[rowIndex][columnIndex].getRowPosition();
                     int stoneColumnPosition = stones[rowIndex][columnIndex].getColumnPosition();
-                    Color color = stones[rowIndex][columnIndex].getTileState();
                     for (int deltaX = -1; deltaX <= 1; deltaX++) {
                         for (int deltaY = -1; deltaY <= 1; deltaY++) {
                             if (deltaX == 0 && deltaY != -1) {

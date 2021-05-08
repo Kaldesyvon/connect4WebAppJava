@@ -3,6 +3,7 @@ package sk.tuke.gamestudio.server.controller;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,8 +25,9 @@ public class Connect4Controller {
     private final int maxTurns;
     private int turn = 0;
     private GameState gameState = GameState.PLAYING;
-    private boolean showScore = false;
+    private final boolean showScore = false;
     private final ScoreService scoreService;
+
 
     public Connect4Controller(Playfield playfield, ScoreService scoreService) {
         this.playfield = playfield;
@@ -37,21 +39,20 @@ public class Connect4Controller {
 
     @RequestMapping(method = RequestMethod.GET)
     public String connect4(@RequestParam(required = false) String column, @RequestParam(required = false) Color color, Model model) {
-        if (column != null && color != null && gameState == GameState.PLAYING) {
-            boolean validTurn = false;
-            while (!validTurn) {
-                validTurn = playfield.addStone(Integer.parseInt(column), color);
-            }
-            if (playfield.checkForWin()) {
+        if (column != null && color != null && maxTurns != turn) {
+            while (gameState == GameState.PLAYING && !playfield.addStone(Integer.parseInt(column), color))
+                turn++;
+
+            if (playfield.checkForWin(Color.RED)) {
                 gameState = GameState.RED_WIN;
                 if (UserTransporter.isLogged())
                     redPlayer.addPoints(10);
             }
-            validTurn = false;
-            while (!validTurn && gameState == GameState.PLAYING) {
-                validTurn = yellowPlayer.addStone();
-            }
-            if (playfield.checkForWin() && gameState == GameState.PLAYING) {
+
+            while (gameState == GameState.PLAYING && !yellowPlayer.addStone())
+                turn++;
+
+            if (gameState == GameState.PLAYING && playfield.checkForWin(Color.YELLOW)) {
                 gameState = GameState.YELLOW_WIN;
                 if (UserTransporter.isLogged())
                     redPlayer.addPoints(-5);
@@ -119,7 +120,8 @@ public class Connect4Controller {
         model.addAttribute("score", redPlayer.getScore());
     }
 
-//    private Player switchPlayers(Player player) {
-//        return player.getColor() == Color.RED ? yellowPlayer : redPlayer;
-//    }
+    @ModelAttribute("gameState")
+    public GameState getGameState() {
+        return gameState;
+    }
 }

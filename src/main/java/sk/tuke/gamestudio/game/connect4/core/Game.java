@@ -2,7 +2,7 @@ package sk.tuke.gamestudio.game.connect4.core;
 
 public final class Game {
 
-    private Color firstPlayer = Color.RED;
+    private final Color firstPlayer = Color.RED;
 
     private final Playfield playfield;
 

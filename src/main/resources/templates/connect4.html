@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Gamestudio</title>
@@ -26,13 +25,21 @@
     <h1>Connect4</h1>
 </div>
 
-<div class="playfield-wrapper">
+<div class="playfield-wrapper" >
     <span th:utext="${htmlField}"/>
     <div class="caption">
         <a href="/connect4/new">New Game</a>
     </div>
-
 </div>
+<span th:if="${@indexController.isLogged}">
+        <h2>Your score against AI:</h2>
+        <h2 th:text="${score}"></h2>
+        <form action="connect4/add">
+            <input type="submit" value="Submit Score">
+        </form>
+
+    </span>
+
 <div class="footer">
     <h3>Created by Martin Novysedlák</h3>
 </div>
