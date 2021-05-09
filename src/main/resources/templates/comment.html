@@ -6,6 +6,7 @@
     <title>Comments</title>
 </head>
 <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/bootstrap.css">
 
 <body>
 
@@ -38,17 +39,23 @@
 
     <div class="middle-text">
         <h4 th:if="${@commentController.isFound}">
-            <ol>
-                <li th:each="comment:${comments}">
-                    <span th:text="${comment.player}"/>
-                    <p> says:</p>
-                    <span th:text="${comment.comment}"/>
-                </li>
-            </ol>
+            <table class="table">
+                <thead>
+                <th>Player</th>
+                <th>comment</th>
+                </thead>
+
+                <tbody>
+                <tr th:each="comment:${comments}">
+                    <td th:text="${comment.player}"></td>
+                    <td th:text="${comment.comment}"></td>
+                </tr>
+                </tbody>
+            </table>
         </h4>
-        <span th:if="not ${@commentController.isFound}">
+        <h4 th:if="not ${@commentController.isFound}">
             <p>User did not comment</p>
-        </span>
+        </h4>
     </div>
 <div class="footer-fixed">
     <h3>Created by Martin Novysedlák</h3>

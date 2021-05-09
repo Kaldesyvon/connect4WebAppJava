@@ -6,6 +6,7 @@
     <title>Score</title>
 </head>
 <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/bootstrap.css">
 
 <body>
 <ul class="nav-bar">
@@ -30,17 +31,25 @@
         <input type="text" name="player" placeholder="Name">
     </form>
 
-    <h4 th:if="${@scoreController.isFound}">
-        <ol>
-            <li th:each="score:${scores}">
-                <span th:text="${score.player}"/>
-                <span th:text="${score.points}"/>
-            </li>
-        </ol>
-    </h4>
+    <div class="middle-text">
+        <h4 th:if="${@scoreController.isFound}">
+            <table class="table">
+                <thead>
+                <th>Player</th>
+                <th>Score</th>
+                </thead>
 
+                <tbody>
+                <tr th:each="score:${scores}">
+                    <td th:text="${score.player}"></td>
+                    <td th:text="${score.points}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </h4>
+    </div>
     <span  th:if="not ${@scoreController.isFound}">
-        <p class="middle-text">User did not score</p>
+        <h4 class="middle-text">User did not score</h4>
     </span>
 
     <div class="footer-fixed">

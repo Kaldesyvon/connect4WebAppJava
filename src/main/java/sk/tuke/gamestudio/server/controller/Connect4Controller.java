@@ -39,7 +39,10 @@ public class Connect4Controller {
 
     @RequestMapping(method = RequestMethod.GET)
     public String connect4(@RequestParam(required = false) String column, @RequestParam(required = false) Color color, Model model) {
-        if (column != null && color != null && maxTurns != turn) {
+        if (maxTurns == turn)
+            gameState = GameState.TIE;
+
+        if (column != null && color != null) {
             while (gameState == GameState.PLAYING && !playfield.addStone(Integer.parseInt(column), color))
                 turn++;
 
@@ -72,9 +75,9 @@ public class Connect4Controller {
 
     @RequestMapping("/add")
     public String submitScore(Model model) {
-        addToModel(model);
         scoreService.addScore(new Score("connect4", UserTransporter.getUser().getLogin(), redPlayer.getScore(), new Date()));
-        return "connect4";
+        addToModel(model);
+        return "redirect:/connect4";
     }
 
     private void reset() {
@@ -118,10 +121,11 @@ public class Connect4Controller {
     public void addToModel(Model model) {
         model.addAttribute("htmlField", getHtmlField());
         model.addAttribute("score", redPlayer.getScore());
+        model.addAttribute("isPlaying", isPlaying());
     }
 
     @ModelAttribute("gameState")
-    public GameState getGameState() {
-        return gameState;
+    public boolean isPlaying() {
+        return gameState == GameState.PLAYING;
     }
 }

@@ -6,6 +6,7 @@
     <title>Rating</title>
 </head>
 <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/bootstrap.css">
 
 <body>
 <ul class="nav-bar">
@@ -35,12 +36,19 @@
 
     <div class="middle-text">
         <h4 th:if="${@ratingController.isFound}">
-            <ol>
-                <li th:each="rating:${ratings}">
-                    <span th:text="${rating.player}"/>
-                    <span th:text="${rating.rating}"/>
-                </li>
-            </ol>
+            <table class="table">
+                <thead>
+                    <th>Player</th>
+                    <th>Rating</th>
+                </thead>
+
+                <tbody>
+                    <tr th:each="rating:${ratings}">
+                        <td th:text="${rating.player}"></td>
+                        <td th:text="${rating.rating}"></td>
+                    </tr>
+                </tbody>
+            </table>
         </h4>
     
         <h4 th:if="${@ratingController.isShownOnePlayer}">
@@ -48,9 +56,9 @@
             <span th:text="${playerRating}"/>
         </h4>
     
-        <span th:if="not ${@ratingController.isFound}">
+        <h4 th:if="not ${@ratingController.isFound}">
                 User did not rate
-        </span>
+        </h4>
     </div>
 
     <div class="footer-fixed">

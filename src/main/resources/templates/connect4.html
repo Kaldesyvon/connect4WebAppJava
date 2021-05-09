@@ -6,6 +6,7 @@
 </head>
 <body>
 <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/bootstrap.css">
 <ul class="nav-bar">
     <li class= "li-navbar"><a href="/">Home</a></li>
     <li class= "li-navbar"><a href="connect4">Play</a></li>
@@ -27,11 +28,11 @@
 
 <div class="playfield-wrapper" >
     <span th:utext="${htmlField}"/>
-    <div class="caption">
+    <div th:if="${not isPlaying}" class="caption">
         <a href="/connect4/new">New Game</a>
     </div>
 </div>
-<span th:if="${@indexController.isLogged}">
+<span th:if="${@indexController.isLogged}" style="text-align: center">
         <h2>Your score against AI:</h2>
         <h2 th:text="${score}"></h2>
         <form action="connect4/add">
@@ -40,9 +41,9 @@
 
     </span>
 
-<div class="footer">
+<footer class="footer" style="bottom: 0">
     <h3>Created by Martin Novysedlák</h3>
-</div>
+</footer>
 
 </body>
 </html>
