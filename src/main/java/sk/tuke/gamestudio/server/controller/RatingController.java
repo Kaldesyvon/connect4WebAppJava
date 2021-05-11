@@ -57,4 +57,8 @@ public class RatingController {
     public boolean isShownOnePlayer() {
         return shownOnePlayer;
     }
+
+    public int getAverageRating() {
+        return ratingService.getAverageRating("connect4");
+    }
 }

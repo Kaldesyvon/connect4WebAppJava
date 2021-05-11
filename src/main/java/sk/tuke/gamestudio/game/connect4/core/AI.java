@@ -52,8 +52,8 @@ public class AI {
         var stones = playfield.getTiles();
 
         {
-            var center_column = Arrays.asList(rotateClockwise(stones)[cols / 2]);
-            score += countStones(center_column, Color.YELLOW) * 4;
+            var centerColumn = Arrays.asList(rotateClockwise(stones)[cols / 2]);
+            score += countStones(centerColumn, Color.YELLOW) * 4;
         }
 
         // score horizontal

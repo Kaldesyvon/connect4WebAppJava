@@ -39,9 +39,6 @@ public class Connect4Controller {
 
     @RequestMapping(method = RequestMethod.GET)
     public String connect4(@RequestParam(required = false) String column, @RequestParam(required = false) Color color, Model model) {
-        if (maxTurns == turn)
-            gameState = GameState.TIE;
-
         if (column != null && color != null) {
             while (gameState == GameState.PLAYING && !playfield.addStone(Integer.parseInt(column), color))
                 turn++;
@@ -61,6 +58,9 @@ public class Connect4Controller {
                     redPlayer.addPoints(-5);
             }
         }
+
+        if (maxTurns == turn)
+            gameState = GameState.TIE;
         addToModel(model);
         return "connect4";
     }

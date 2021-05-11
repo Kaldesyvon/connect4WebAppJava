@@ -1,10 +1,10 @@
 package sk.tuke.gamestudio.game.connect4.core;
 
-public class Pair {
+class Pair {
     private int column;
     private int score;
 
-    public Pair(int column, int score) {
+    Pair(int column, int score) {
         this.column = column;
         this.score = score;
     }
