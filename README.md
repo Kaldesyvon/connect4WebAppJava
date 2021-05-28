@@ -1,1 +1,1 @@
-https://tukesk-my.sharepoint.com/:v:/g/personal/martin_novysedlak_2_student_tuke_sk/ESqdZzoX32FCssQXfmRu2ZIBUF1bLBLcupGpX4Nw6wHgTw?e=0deCbD
+Web application that run on server made of Java's framework Spring. Server is supported by Postgres that manages JPA. Databases includes comments, score, rating and users. For creating new account log in normally and than log in again. Game includes AI that looks into the future and picks best move of best moves. Project has JUnit tests.
